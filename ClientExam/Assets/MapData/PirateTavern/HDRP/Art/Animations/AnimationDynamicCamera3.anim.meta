@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ff67a4af7ec6f8341b4b9ec78b8b3f09
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Art/Animations/AnimationDynamicCamera3.anim
+  uploadId: 721271

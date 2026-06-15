@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 98c68f802754e064aba3798c05e9bb3e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Art/Meshes/RockGeometry/Materials/MI_Rock_Displaced_A.mat
+  uploadId: 721271

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 18dce5b5f755849449bef1143d80d46b
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Art/Meshes/Modules/Walls/Wall_half_A-and-B/Mesh/Materials/MI_Wall.mat
+  uploadId: 721271

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4b6b7fd74ea2cbd4b80272772dd00079
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Art/Meshes/Modules/Walls/Wall_Decorative_A/Materials/MI_Atlas.mat
+  uploadId: 721271

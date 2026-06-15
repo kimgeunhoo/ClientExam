@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cf9cf05d150b6ed4eaab58f218a794d0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Art/Meshes/Modules/FabricCanopy/Materials/MI_Fabric_Canopy.mat
+  uploadId: 721271

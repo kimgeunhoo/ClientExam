@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4ccd30b62c536234cba16ca4f0883733
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Art/Animations/DynamicCamera15.controller
+  uploadId: 721271

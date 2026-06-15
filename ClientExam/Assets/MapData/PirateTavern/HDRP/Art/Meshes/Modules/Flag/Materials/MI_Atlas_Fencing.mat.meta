@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c162d887df9790d48949563c1744c05a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Art/Meshes/Modules/Flag/Materials/MI_Atlas_Fencing.mat
+  uploadId: 721271

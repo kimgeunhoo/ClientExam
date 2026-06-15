@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 76fcf3e9c1b928542a375429ee634de9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Art/Meshes/SandGeometry/Materials/MI_Smooth.mat
+  uploadId: 721271

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 4ef4a193bf220474da70d0c936760b13
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Scene/HDRP_PirateTavern/README_About_ExtraFogs.txt
+  uploadId: 721271

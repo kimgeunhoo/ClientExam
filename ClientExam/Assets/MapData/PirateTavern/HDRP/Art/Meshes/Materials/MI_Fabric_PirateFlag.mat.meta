@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7c4d48e632f275d4ba4f053ff8a69381
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Art/Meshes/Materials/MI_Fabric_PirateFlag.mat
+  uploadId: 721271

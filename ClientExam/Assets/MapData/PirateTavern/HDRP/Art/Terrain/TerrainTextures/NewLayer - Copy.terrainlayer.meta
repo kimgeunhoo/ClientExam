@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 54b632a205ea5d34e9ffa3d5e1685616
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 8574412962073106934
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Art/Terrain/TerrainTextures/NewLayer
+    - Copy.terrainlayer
+  uploadId: 721271

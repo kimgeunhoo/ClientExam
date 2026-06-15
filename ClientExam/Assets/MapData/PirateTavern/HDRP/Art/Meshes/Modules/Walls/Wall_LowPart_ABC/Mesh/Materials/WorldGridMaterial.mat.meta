@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0d0bfd160645e0e44984f37284376c95
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 295810
+  packageName: Pirate Tavern Environment
+  packageVersion: 1.0
+  assetPath: Assets/LeartesStudios/PirateTavern/HDRP/Art/Meshes/Modules/Walls/Wall_LowPart_ABC/Mesh/Materials/WorldGridMaterial.mat
+  uploadId: 721271
