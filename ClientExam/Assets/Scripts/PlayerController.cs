@@ -1,4 +1,5 @@
 using System;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,18 +17,34 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float runSpeed = 6f;
 
     [Header("Jump")]
-    [SerializeField] private float jumpHeight = 4f; 
+    [SerializeField] private float jumpHeight = 4f;
+    [SerializeField] private float airControl = 0.4f;
+    [SerializeField] private float landVelocityThreshold = -3f;
 
     [Header("Look")]
+    [SerializeField] private Transform cameraTarget;
+    [SerializeField] private Transform model;
+    [SerializeField] private float turnSpeed = 12f;
     [SerializeField] private Transform cameraRoot;
-    [SerializeField] private float mouseSensitivity = 2f;
+    [SerializeField] private float mouseSensitivity = 10f;
+    [SerializeField] private CinemachineThirdPersonFollow thirdPersonFollow;
+    [SerializeField] private float zoomSpeed = 0.01f;
+    [SerializeField] private float minCameraDistance = 2f;
+    [SerializeField] private float maxCameraDistance = 8f;
+    [SerializeField] private float zoomSmooth = 10f;
+
+    private float zoomInput;
+    private float targetCameraDistance;
 
     [Header("Animator")]
     [SerializeField] private Animator animator;
 
+
     private static readonly int MoveSpeedHash = Animator.StringToHash("MoveSpeed");
     private static readonly int IsGroundedHash = Animator.StringToHash("IsGrounded");
-    private static readonly int JumpHash = Animator.StringToHash("Jump");
+    private static readonly int JumpStartHash = Animator.StringToHash("JumpStart");
+    private static readonly int JumpLandHash = Animator.StringToHash("JumpLand");
+    private static readonly int IsFallingHash = Animator.StringToHash("IsFalling");
 
     private CharacterController controller;
     private PlayerInputAction input;
@@ -36,12 +53,16 @@ public class PlayerController : MonoBehaviour
 
     private bool runPressed;
     private bool jumpPressed;
+
     private float yaw;
     private float pitch;
+
+    private bool wasGrounded;
 
 
     private void Awake()
     {
+        targetCameraDistance = thirdPersonFollow.CameraDistance;
         controller = GetComponent<CharacterController>();
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
@@ -53,9 +74,13 @@ public class PlayerController : MonoBehaviour
 
         input.Player.Move.performed += OnMove;
         input.Player.Move.canceled += OnMove;
-
+        input.Player.Run.performed += OnRun;
+        input.Player.Run.canceled += OnRun;
         input.Player.Look.performed += OnLook;
         input.Player.Look.canceled += OnLook;
+        input.Player.Zoom.performed += OnZoom;
+        input.Player.Zoom.canceled += OnZoom;
+
         input.Player.Jump.performed += OnJump;
     }
 
@@ -63,23 +88,35 @@ public class PlayerController : MonoBehaviour
     {
         input.Player.Move.performed -= OnMove;
         input.Player.Move.canceled -= OnMove;
-
+        input.Player.Run.performed -= OnRun;
+        input.Player.Run.canceled -= OnRun;
         input.Player.Look.performed -= OnLook;
         input.Player.Look.canceled -= OnLook;
+        input.Player.Zoom.performed -= OnZoom;
+        input.Player.Zoom.canceled -= OnZoom;
+
         input.Player.Jump.performed -= OnJump;
 
         input.Disable();
     }
 
+    private void OnZoom(InputAction.CallbackContext ctx) 
+    {
+        zoomInput = ctx.ReadValue<float>();
+    }
     private void OnMove(InputAction.CallbackContext ctx)
     {
         moveInput = ctx.ReadValue<Vector2>();
     }
-
+    private void OnRun(InputAction.CallbackContext ctx)
+    {
+        runPressed = ctx.ReadValueAsButton();
+    }
     private void OnLook(InputAction.CallbackContext ctx)
     {
         lookInput = ctx.ReadValue<Vector2>();
     }
+
     private void OnJump(InputAction.CallbackContext context)
     {
         jumpPressed = true;
@@ -109,37 +146,83 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
-        HandleLook();
+        HandleCameraLook();
+        HandleZoom();
         HandleMove();
         HandleJump();
         HandleAnimation();
     }
+    private void HandleCameraLook()
+    {
+        yaw += lookInput.x * mouseSensitivity * Time.deltaTime;
+        pitch -= lookInput.y * mouseSensitivity * Time.deltaTime;
+        pitch = Mathf.Clamp(pitch, -60f, 80f);
 
+        cameraRoot.rotation = Quaternion.Euler(pitch, yaw, 0f);
+    }
+    private void HandleZoom()
+    {
+        if (Mathf.Abs(zoomInput) > 0.01f)
+        {
+            targetCameraDistance -= zoomInput * zoomSpeed;
+
+            targetCameraDistance = Mathf.Clamp(
+                targetCameraDistance,
+                minCameraDistance,
+                maxCameraDistance
+            );
+        }
+
+        thirdPersonFollow.CameraDistance = Mathf.Lerp(
+            thirdPersonFollow.CameraDistance,
+            targetCameraDistance,
+            zoomSmooth * Time.deltaTime
+        );
+
+        zoomInput = 0f;
+    }
     private void HandleAnimation()
     {
         float animSpeed = moveInput.magnitude;
 
-        if (runPressed && moveInput.magnitude > 0.1f)
-            animSpeed = 1f;
-        else if (moveInput.magnitude > 0.1f)
-            animSpeed = 0.5f;
-
+        if (moveInput.magnitude > 0.1f)
+        {
+            animSpeed = runPressed ? 1f : 0.5f;
+        }
         animator.SetFloat(MoveSpeedHash, animSpeed);
-
         animator.SetBool(IsGroundedHash, controller.isGrounded);
     }
 
     private void HandleMove()
     {
-        Vector3 move = transform.forward * moveInput.y + transform.right * moveInput.x;
+
+        Vector3 camForward = cameraTarget.forward;
+        Vector3 camRight = cameraTarget.right;
+
+        camForward.y = 0f;
+        camRight.y = 0f;
+
+        camForward.Normalize();
+        camRight.Normalize();
+
+        Vector3 move = camForward * moveInput.y + camRight * moveInput.x;
+
+        if (move.sqrMagnitude > 0.01f)
+        {
+            Quaternion targetRot = Quaternion.LookRotation(move);
+            model.rotation = Quaternion.Slerp(
+                model.rotation,
+                targetRot,
+                turnSpeed * Time.deltaTime
+            );
+        }
+
         float currentSpeed = runPressed ? runSpeed : walkSpeed;
 
         move *= currentSpeed;
 
         if (controller.isGrounded && verticalVelocity < 0f)
-        {
             verticalVelocity = -2f;
-        }
 
         verticalVelocity += gravity * Time.deltaTime;
         move.y = verticalVelocity;
@@ -147,38 +230,36 @@ public class PlayerController : MonoBehaviour
         controller.Move(move * Time.deltaTime);
     }
 
-    private void HandleLook()
-    {
-        yaw += lookInput.x * mouseSensitivity;
-        pitch -= lookInput.y * mouseSensitivity;
-
-        pitch = Mathf.Clamp(pitch, -60f, 70f);
-
-        transform.rotation =
-            Quaternion.Euler(0f, yaw, 0f);
-
-        cameraRoot.localRotation =
-            Quaternion.Euler(pitch, 0f, 0f);
-    }
-
     private void HandleJump() 
     {
-        if (controller.isGrounded)
-        {
-            if (verticalVelocity < 0f)
-            {
-                verticalVelocity = -2f;
-            }
+        bool isGrounded = controller.isGrounded;
+        float previousYVelocity = verticalVelocity;
 
-            if (jumpPressed)
-            {
-                verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                animator.SetTrigger(JumpHash);
-            }
+        if (isGrounded && verticalVelocity < 0f)
+        {
+            verticalVelocity = -2f;
         }
 
+        if (isGrounded && jumpPressed)
+        {
+            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            animator.ResetTrigger(JumpLandHash);
+            animator.SetTrigger(JumpStartHash);
+        }
         verticalVelocity += gravity * Time.deltaTime;
 
+        bool isFalling = !isGrounded && verticalVelocity < -0.1f;
+        animator.SetBool(IsFallingHash, isFalling);
+
+        if (!wasGrounded && isGrounded && previousYVelocity <= landVelocityThreshold)
+        {
+            animator.SetBool(IsFallingHash, false);
+            animator.SetTrigger(JumpLandHash);
+        }
+
+        wasGrounded = isGrounded;
         jumpPressed = false;
     }
+
 }
