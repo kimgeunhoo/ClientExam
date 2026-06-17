@@ -47,7 +47,9 @@ public class PlayerController : MonoBehaviour
     private static readonly int IsFallingHash = Animator.StringToHash("IsFalling");
 
     private CharacterController controller;
+    private InventoryController inventoryController;
     private PlayerInputAction input;
+    private PlayerRooting playerRooting;
     private Vector2 moveInput;
     private Vector2 lookInput;
 
@@ -66,6 +68,8 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
+        if (inventoryController == null)
+            inventoryController = GetComponent<InventoryController>();
         input = new PlayerInputAction();
     }
     private void OnEnable()
@@ -80,8 +84,13 @@ public class PlayerController : MonoBehaviour
         input.Player.Look.canceled += OnLook;
         input.Player.Zoom.performed += OnZoom;
         input.Player.Zoom.canceled += OnZoom;
+        input.Player.Inventory.performed += inventoryController.OnInventory;
+        input.Player.Inventory.canceled += inventoryController.OnInventory;
+        //input.Player.Rooting.performed += playerRooting.OnPickup;
+        //input.Player.Rooting.canceled += playerRooting.OnPickup;
 
-        input.Player.Jump.performed += OnJump;
+        input.Player.Jump.performed += OnJump; 
+        input.Player.Jump.canceled += OnJump;
     }
 
     private void OnDisable()
@@ -94,9 +103,13 @@ public class PlayerController : MonoBehaviour
         input.Player.Look.canceled -= OnLook;
         input.Player.Zoom.performed -= OnZoom;
         input.Player.Zoom.canceled -= OnZoom;
+        input.Player.Inventory.performed -= inventoryController.OnInventory;
+        input.Player.Inventory.canceled -= inventoryController.OnInventory;
+        //input.Player.Rooting.performed -= playerRooting.OnPickup;
+        //input.Player.Rooting.canceled -= playerRooting.OnPickup;
 
         input.Player.Jump.performed -= OnJump;
-
+        input.Player.Jump.canceled -= OnJump;
         input.Disable();
     }
 
@@ -106,6 +119,11 @@ public class PlayerController : MonoBehaviour
     }
     private void OnMove(InputAction.CallbackContext ctx)
     {
+        if (inventoryController != null && inventoryController.IsOpen)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
         moveInput = ctx.ReadValue<Vector2>();
     }
     private void OnRun(InputAction.CallbackContext ctx)
@@ -114,6 +132,11 @@ public class PlayerController : MonoBehaviour
     }
     private void OnLook(InputAction.CallbackContext ctx)
     {
+        if (inventoryController != null && inventoryController.IsOpen)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
         lookInput = ctx.ReadValue<Vector2>();
     }
 

@@ -59,6 +59,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Inventory",
+                    "type": "Button",
+                    "id": "cbb8d96b-4078-47c0-bfe0-5695ad1e7ba5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Rooting",
+                    "type": "Button",
+                    "id": "8184ea8d-f10a-4192-8496-93292af546fa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -169,6 +187,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa22f15a-b2b5-42fe-a600-c215128b274d",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d987dfcf-0ef0-496d-abd8-5203b63d4cc2",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rooting",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

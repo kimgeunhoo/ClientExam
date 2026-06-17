@@ -145,6 +145,24 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Inventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""cbb8d96b-4078-47c0-bfe0-5695ad1e7ba5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Rooting"",
+                    ""type"": ""Button"",
+                    ""id"": ""8184ea8d-f10a-4192-8496-93292af546fa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -257,6 +275,28 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fa22f15a-b2b5-42fe-a600-c215128b274d"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Inventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d987dfcf-0ef0-496d-abd8-5203b63d4cc2"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Rooting"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -271,6 +311,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
         m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
+        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_Rooting = m_Player.FindAction("Rooting", throwIfNotFound: true);
     }
 
     ~@PlayerInputAction()
@@ -357,6 +399,8 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Run;
     private readonly InputAction m_Player_Zoom;
+    private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_Rooting;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -392,6 +436,14 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Zoom".
         /// </summary>
         public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Inventory".
+        /// </summary>
+        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Rooting".
+        /// </summary>
+        public InputAction @Rooting => m_Wrapper.m_Player_Rooting;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -436,6 +488,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Zoom.started += instance.OnZoom;
             @Zoom.performed += instance.OnZoom;
             @Zoom.canceled += instance.OnZoom;
+            @Inventory.started += instance.OnInventory;
+            @Inventory.performed += instance.OnInventory;
+            @Inventory.canceled += instance.OnInventory;
+            @Rooting.started += instance.OnRooting;
+            @Rooting.performed += instance.OnRooting;
+            @Rooting.canceled += instance.OnRooting;
         }
 
         /// <summary>
@@ -465,6 +523,12 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
             @Zoom.started -= instance.OnZoom;
             @Zoom.performed -= instance.OnZoom;
             @Zoom.canceled -= instance.OnZoom;
+            @Inventory.started -= instance.OnInventory;
+            @Inventory.performed -= instance.OnInventory;
+            @Inventory.canceled -= instance.OnInventory;
+            @Rooting.started -= instance.OnRooting;
+            @Rooting.performed -= instance.OnRooting;
+            @Rooting.canceled -= instance.OnRooting;
         }
 
         /// <summary>
@@ -547,5 +611,19 @@ public partial class @PlayerInputAction: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnZoom(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Inventory" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInventory(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Rooting" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRooting(InputAction.CallbackContext context);
     }
 }
