@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
         if (inventoryController == null)
             inventoryController = GetComponent<InventoryController>();
+        if (playerRooting == null)
+            playerRooting = GetComponentInChildren<PlayerRooting>();
         input = new PlayerInputAction();
     }
     private void OnEnable()
@@ -86,8 +88,7 @@ public class PlayerController : MonoBehaviour
         input.Player.Zoom.canceled += OnZoom;
         input.Player.Inventory.performed += inventoryController.OnInventory;
         input.Player.Inventory.canceled += inventoryController.OnInventory;
-        //input.Player.Rooting.performed += playerRooting.OnPickup;
-        //input.Player.Rooting.canceled += playerRooting.OnPickup;
+        input.Player.Pickup.performed += playerRooting.OnPickup;
 
         input.Player.Jump.performed += OnJump; 
         input.Player.Jump.canceled += OnJump;
@@ -105,8 +106,7 @@ public class PlayerController : MonoBehaviour
         input.Player.Zoom.canceled -= OnZoom;
         input.Player.Inventory.performed -= inventoryController.OnInventory;
         input.Player.Inventory.canceled -= inventoryController.OnInventory;
-        //input.Player.Rooting.performed -= playerRooting.OnPickup;
-        //input.Player.Rooting.canceled -= playerRooting.OnPickup;
+        input.Player.Pickup.performed -= playerRooting.OnPickup;
 
         input.Player.Jump.performed -= OnJump;
         input.Player.Jump.canceled -= OnJump;

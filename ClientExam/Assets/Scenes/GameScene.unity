@@ -1043,6 +1043,17 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
+--- !u!114 &35000473 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9202373530346375182, guid: 29aca419b940250409fcb9451453b266, type: 3}
+  m_PrefabInstance: {fileID: 1160138717}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &39355361
 GameObject:
   m_ObjectHideFlags: 0
@@ -7317,6 +7328,11 @@ Transform:
   - {fileID: 1031013151}
   m_Father: {fileID: 1419691755}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &300880128 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4087548869634192808, guid: 29aca419b940250409fcb9451453b266, type: 3}
+  m_PrefabInstance: {fileID: 728377161}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &301508618
 GameObject:
   m_ObjectHideFlags: 0
@@ -8683,7 +8699,7 @@ MonoBehaviour:
   pickupRange: 2
   itemLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!4 &384356115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8783788708762291149, guid: 8d08a3be3324f324e9c4b200b645df76, type: 3}
@@ -14890,6 +14906,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1870046663450471744, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2861554652847307391, guid: 29aca419b940250409fcb9451453b266, type: 3}
       propertyPath: m_LocalPosition.x
       value: 31.661652
@@ -14930,9 +14950,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4590617346183466978, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5551692300990801768, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 53addc6f6939a7d4eae2082ebe6b3693, type: 2}
+    - target: {fileID: 5551692300990801768, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: pickupText
+      value: 
+      objectReference: {fileID: 1812017413}
+    - target: {fileID: 5551692300990801768, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: pickupTextRoot
+      value: 
+      objectReference: {fileID: 300880128}
+    - target: {fileID: 6922628968151444109, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972892902194541179, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8429349603188083115, guid: 29aca419b940250409fcb9451453b266, type: 3}
       propertyPath: m_Name
       value: IronGem (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429349603188083115, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -394153,6 +394201,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1870046663450471744, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2861554652847307391, guid: 29aca419b940250409fcb9451453b266, type: 3}
       propertyPath: m_LocalPosition.x
       value: 32.906242
@@ -394193,9 +394245,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4590617346183466978, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5551692300990801768, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 53addc6f6939a7d4eae2082ebe6b3693, type: 2}
+    - target: {fileID: 5551692300990801768, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: pickupText
+      value: 
+      objectReference: {fileID: 1233872887}
+    - target: {fileID: 5551692300990801768, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: pickupTextRoot
+      value: 
+      objectReference: {fileID: 1736082530}
+    - target: {fileID: 6922628968151444109, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972892902194541179, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8429349603188083115, guid: 29aca419b940250409fcb9451453b266, type: 3}
       propertyPath: m_Name
       value: IronGem (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429349603188083115, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -397252,6 +397332,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1870046663450471744, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2861554652847307391, guid: 29aca419b940250409fcb9451453b266, type: 3}
       propertyPath: m_LocalPosition.x
       value: 32.311306
@@ -397292,13 +397376,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4590617346183466978, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5551692300990801768, guid: 29aca419b940250409fcb9451453b266, type: 3}
       propertyPath: itemData
       value: 
       objectReference: {fileID: 11400000, guid: 53addc6f6939a7d4eae2082ebe6b3693, type: 2}
+    - target: {fileID: 5551692300990801768, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: pickupText
+      value: 
+      objectReference: {fileID: 35000473}
+    - target: {fileID: 5551692300990801768, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: pickupTextRoot
+      value: 
+      objectReference: {fileID: 1805153995}
+    - target: {fileID: 6922628968151444109, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6972892902194541179, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8429349603188083115, guid: 29aca419b940250409fcb9451453b266, type: 3}
       propertyPath: m_Name
       value: IronGem
+      objectReference: {fileID: 0}
+    - target: {fileID: 8429349603188083115, guid: 29aca419b940250409fcb9451453b266, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -398523,6 +398631,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1031011224, guid: abc00000000017660595589611839406, type: 3}
   m_PrefabInstance: {fileID: 733298008}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1233872887 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9202373530346375182, guid: 29aca419b940250409fcb9451453b266, type: 3}
+  m_PrefabInstance: {fileID: 1061471507}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1239772236
 GameObject:
   m_ObjectHideFlags: 0
@@ -407744,6 +407863,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4988dc04b9a8c3b4da3ed60fa312db9e, type: 3}
+--- !u!1 &1736082530 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4087548869634192808, guid: 29aca419b940250409fcb9451453b266, type: 3}
+  m_PrefabInstance: {fileID: 1061471507}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1736605431
 GameObject:
   m_ObjectHideFlags: 0
@@ -408851,6 +408975,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07694f284c541a14890f284ee718892e, type: 3}
+--- !u!1 &1805153995 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4087548869634192808, guid: 29aca419b940250409fcb9451453b266, type: 3}
+  m_PrefabInstance: {fileID: 1160138717}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1806513978
 GameObject:
   m_ObjectHideFlags: 0
@@ -409057,6 +409186,17 @@ Transform:
   - {fileID: 125471592}
   m_Father: {fileID: 266588669}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1812017413 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9202373530346375182, guid: 29aca419b940250409fcb9451453b266, type: 3}
+  m_PrefabInstance: {fileID: 728377161}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1813017680
 GameObject:
   m_ObjectHideFlags: 0

@@ -70,7 +70,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Rooting",
+                    "name": "Pickup",
                     "type": "Button",
                     "id": "8184ea8d-f10a-4192-8496-93292af546fa",
                     "expectedControlType": "",
@@ -208,7 +208,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Rooting",
+                    "action": "Pickup",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

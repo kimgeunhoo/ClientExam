@@ -12,10 +12,11 @@ public class PlayerRooting : MonoBehaviour
     [SerializeField] private LayerMask itemLayer;
 
     private DropItem nearestItem;
-
+    private DropItem previousNearestItem;
     private void Update()
     {
         FindNearestItem();
+        UpdatePickupText();
     }
     public void OnPickup(InputAction.CallbackContext context)
     {
@@ -31,7 +32,6 @@ public class PlayerRooting : MonoBehaviour
 
         nearestItem = null;
         float nearestDistance = float.MaxValue;
-
         foreach (Collider hit in hits)
         {
             DropItem item = hit.GetComponentInParent<DropItem>();
@@ -47,11 +47,27 @@ public class PlayerRooting : MonoBehaviour
             }
         }
     }
+    private void UpdatePickupText()
+    {
+        if (previousNearestItem != null && previousNearestItem != nearestItem)
+            previousNearestItem.HidePickupText();
+
+        if (nearestItem != null)
+            nearestItem.ShowPickupText();
+
+        previousNearestItem = nearestItem;
+    }
 
     private void TryPickUp()
     {
         if (nearestItem == null)
+        {
+            Debug.Log("줍기 실패: nearestItem 없음");
             return;
+        }
+
+        Debug.Log($"줍기 입력 감지: {nearestItem.name}");
+
 
         bool success = nearestItem.PickUp(inventoryManager);
 
