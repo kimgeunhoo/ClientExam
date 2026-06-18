@@ -8,14 +8,14 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private CharacterStats playerStats;
 
     [Header("Move")]
-    [SerializeField] private float walkSpeed = 3f;
     [SerializeField] private float gravity = -20f;
     [SerializeField] private float verticalVelocity = -0f;
     [SerializeField] private float pushPower = 8f;
-    [SerializeField] private float runSpeed = 6f;
-
+    private float walkSpeed;
+    private float runSpeed;
     [Header("Jump")]
     [SerializeField] private float jumpHeight = 4f;
     [SerializeField] private float airControl = 0.4f;
@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     private InventoryController inventoryController;
     private PlayerInputAction input;
     private PlayerRooting playerRooting;
+    private PlayerMining playerMining;
     private Vector2 moveInput;
     private Vector2 lookInput;
 
@@ -65,6 +66,9 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         targetCameraDistance = thirdPersonFollow.CameraDistance;
+        playerStats = GetComponent<CharacterStats>();
+        walkSpeed = playerStats.MoveSpeed;
+        runSpeed = playerStats.MoveSpeed * 2;
         controller = GetComponent<CharacterController>();
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
@@ -72,6 +76,8 @@ public class PlayerController : MonoBehaviour
             inventoryController = GetComponent<InventoryController>();
         if (playerRooting == null)
             playerRooting = GetComponentInChildren<PlayerRooting>();
+        if (playerMining == null)
+            playerMining= GetComponent<PlayerMining>();
         input = new PlayerInputAction();
     }
     private void OnEnable()
@@ -89,6 +95,7 @@ public class PlayerController : MonoBehaviour
         input.Player.Inventory.performed += inventoryController.OnInventory;
         input.Player.Inventory.canceled += inventoryController.OnInventory;
         input.Player.Pickup.performed += playerRooting.OnPickup;
+        input.Player.Interact.performed += playerMining.OnInteract;
 
         input.Player.Jump.performed += OnJump; 
         input.Player.Jump.canceled += OnJump;
@@ -96,6 +103,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
+        Debug.Log($"input = {input}");
+        Debug.Log($"inventoryController = {inventoryController}");
+        Debug.Log($"playerRooting = {playerRooting}");
+        Debug.Log($"playerMining = {playerMining}");
+        if (input == null)
+            return;
+
         input.Player.Move.performed -= OnMove;
         input.Player.Move.canceled -= OnMove;
         input.Player.Run.performed -= OnRun;
@@ -106,7 +120,9 @@ public class PlayerController : MonoBehaviour
         input.Player.Zoom.canceled -= OnZoom;
         input.Player.Inventory.performed -= inventoryController.OnInventory;
         input.Player.Inventory.canceled -= inventoryController.OnInventory;
+
         input.Player.Pickup.performed -= playerRooting.OnPickup;
+        input.Player.Interact.performed -= playerMining.OnInteract;
 
         input.Player.Jump.performed -= OnJump;
         input.Player.Jump.canceled -= OnJump;
@@ -119,11 +135,15 @@ public class PlayerController : MonoBehaviour
     }
     private void OnMove(InputAction.CallbackContext ctx)
     {
+        if (ctx.performed)
+            playerMining.CancelMiningByInput();
+
         if (inventoryController != null && inventoryController.IsOpen)
         {
             moveInput = Vector2.zero;
             return;
         }
+
         moveInput = ctx.ReadValue<Vector2>();
     }
     private void OnRun(InputAction.CallbackContext ctx)
@@ -140,8 +160,11 @@ public class PlayerController : MonoBehaviour
         lookInput = ctx.ReadValue<Vector2>();
     }
 
-    private void OnJump(InputAction.CallbackContext context)
+    private void OnJump(InputAction.CallbackContext ctx)
     {
+        if (ctx.performed)
+            playerMining.CancelMiningByInput();
+
         jumpPressed = true;
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)

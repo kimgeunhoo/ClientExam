@@ -45,26 +45,30 @@ public class DropItem : MonoBehaviour
 
         pickupText.text = $"F : Get {itemData.itemName} ";
     }
+    public void SetAmount(int newAmount)
+    {
+        amount = Mathf.Max(1, newAmount);
+    }
 
     public bool PickUp(InventoryManager inventory)
     {
         if (inventory == null)
         {
-            Debug.LogError("PickUp 실패: InventoryManager가 연결되지 않음");
+            //Debug.LogError("PickUp 실패: InventoryManager가 연결되지 않음");
             return false;
         }
 
         if (itemData == null)
         {
-            Debug.LogError("PickUp 실패: DropItem의 ItemData가 비어있음");
+           // Debug.LogError("PickUp 실패: DropItem의 ItemData가 비어있음");
             return false;
         }
 
-        Debug.Log($"PickUp 시도: {itemData.name}, amount={amount}");
+        //Debug.Log($"PickUp 시도: {itemData.name}, amount={amount}");
 
         bool success = inventory.AddItem(itemData, amount);
 
-        Debug.Log($"AddItem 결과: {success}");
+       // Debug.Log($"AddItem 결과: {success}");
 
         if (success)
             Destroy(gameObject);

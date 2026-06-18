@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe2ce7dfee617b343b9d78fdad9b049e, type: 3}
+  m_Name: PirateSaber
+  m_EditorClassIdentifier: Assembly-CSharp::ItemData
+  itemName: PirateSaber
+  icon: {fileID: -1303645908, guid: 73cef25bc19e442419f47b803f629847, type: 3}
+  maxStack: 1
+  itemType: 2
+  equipSlotType: 1
+  statModifiers:
+  - statType: 1
+    value: 10
+  - statType: 4
+    value: 0.8
+  - statType: 5
+    value: 10

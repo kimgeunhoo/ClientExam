@@ -14,6 +14,6 @@ public class BillboardUI : MonoBehaviour
         if (mainCamera == null)
             return;
 
-        transform.forward = mainCamera.transform.forward;
+        transform.rotation = mainCamera.transform.rotation;
     }
 }
