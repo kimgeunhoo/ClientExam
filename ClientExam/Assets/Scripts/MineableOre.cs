@@ -1,3 +1,4 @@
+using ShatterStone;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -21,10 +22,13 @@ public class MineableOre : MonoBehaviour
     [SerializeField] private GameObject visualRoot;
     [SerializeField] private Collider oreCollider;
 
+   // private OreNode oreNode;
+
     public string OreName => oreName;
     public float MiningTime => miningTime;
     private void Awake()
     {
+        //oreNode = GetComponent<OreNode>();
         HideInteractText();
     }
     private void Start()
@@ -81,13 +85,21 @@ public class MineableOre : MonoBehaviour
     }
     private void SetOreActive(bool active)
     {
-        if (visualRoot != null)
-            visualRoot.SetActive(active);
-
         if (oreCollider != null)
             oreCollider.enabled = active;
 
         HideInteractText();
+
+        StartCoroutine(OreShatter());
+
+        if (visualRoot != null)
+            visualRoot.SetActive(active);
+    }
+
+    private IEnumerator OreShatter()
+    {
+        //oreNode.Interact(1);
+        yield return new WaitForSeconds(1f);
     }
     public void ShowInteractText()
     {

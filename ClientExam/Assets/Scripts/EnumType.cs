@@ -12,6 +12,7 @@ public enum EquipSlotType
 public enum StatType
 {
     MaxHp,
+    MaxStamina,
     Attack,
     Defense,
     MoveSpeed,
@@ -25,3 +26,8 @@ public enum ItemType
     Equipment
 }
 
+public enum ToolType
+{
+    None,
+    Pickaxe
+}

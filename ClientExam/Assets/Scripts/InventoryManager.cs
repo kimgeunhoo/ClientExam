@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ public class InventoryManager : MonoBehaviour
 {
     [Header("Inventory")]
     [SerializeField] private int capacity = 35;
+    [SerializeField] private int gold = 10000;
 
     [Header("UI")]
     [SerializeField] private Canvas rootCanvas;
@@ -16,10 +18,14 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private ItemIconUI itemIconPrefab;
 
     [Header("Test Items")]
-    [SerializeField] private ItemData testGold;
-    [SerializeField] private ItemData testPotion;
+    [SerializeField] private ItemData testPickAxe;
     [SerializeField] private ItemData testOre;
     [SerializeField] private ItemData testSword;
+
+    [Header("Equip Method")]
+    [SerializeField] private EquipmentManager equipmentManager;
+    [SerializeField] private RectTransform equipmentSlotParent;
+    public int Gold => gold;
 
     private List<InventorySlotData> slots = new List<InventorySlotData>();
     private List<RectTransform> slotRects = new List<RectTransform>();
@@ -30,12 +36,12 @@ public class InventoryManager : MonoBehaviour
     private IEnumerator Start()
     {
         InitInventory();
+        InitEquipmentSlots();
 
         CacheSlotRects();
         CreateItemIcons();
 
-        AddItem(testGold, 100);
-        AddItem(testPotion, 5);
+        AddItem(testPickAxe, 1);
         AddItem(testOre, 5);
         AddItem(testSword, 1);
 
@@ -88,8 +94,19 @@ public class InventoryManager : MonoBehaviour
             slots.Add(new InventorySlotData());
         }
     }
+    private void InitEquipmentSlots()
+    {
+        if (equipmentSlotParent == null)
+            return;
 
+        EquipmentSlotUI[] equipSlots =
+            equipmentSlotParent.GetComponentsInChildren<EquipmentSlotUI>(true);
 
+        foreach (EquipmentSlotUI slot in equipSlots)
+        {
+            slot.Init(this, equipmentManager, rootCanvas);
+        }
+    }
     public bool AddItem(ItemData item, int amount, bool refresh = true)
     {
         if (item == null || amount <= 0)
@@ -156,6 +173,45 @@ public class InventoryManager : MonoBehaviour
 
         return -1;
     }
+
+    public bool RemoveItem(ItemData item, int amount, bool refresh = true)
+    {
+        if (item == null || amount <= 0)
+            return false;
+
+        int remainAmount = amount;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].IsEmpty)
+                continue;
+
+            if (slots[i].item != item)
+                continue;
+
+            int removeAmount = Mathf.Min(slots[i].count, remainAmount);
+
+            slots[i].count -= removeAmount;
+            remainAmount -= removeAmount;
+
+            if (slots[i].count <= 0)
+                slots[i].Clear();
+
+            if (remainAmount <= 0)
+            {
+                if (refresh)
+                    RefreshUI();
+
+                return true;
+            }
+        }
+
+        if (refresh)
+            RefreshUI();
+
+        return false;
+    }
+
     public Vector2 GetSlotPositionInItemParent(int index)
     {
         Camera cam = rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay
@@ -204,6 +260,18 @@ public class InventoryManager : MonoBehaviour
         RefreshUI();
     }
 
+    public int GetItemCount(ItemData item)
+    {
+        int total = 0;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (!slots[i].IsEmpty && slots[i].item == item)
+                total += slots[i].count;
+        }
+
+        return total;
+    }
     private void RefreshUI()
     {
         for (int i = 0; i < itemIcons.Count; i++)
@@ -214,5 +282,133 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    
+    public bool SpendGold(int amount)
+    {
+        if (gold < amount)
+            return false;
+
+        gold -= amount;
+        return true;
+    }
+
+    public void AddGold(int amount)
+    {
+        gold += amount;
+    }
+    public List<InventorySlotData> GetSlots()
+    {
+        return slots;
+    }
+
+    public EquipmentSlotUI GetEquipmentSlotUnderMouse(PointerEventData eventData)
+    {
+        Camera cam = rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay
+            ? null
+            : rootCanvas.worldCamera;
+
+        for (int i = 0; i < equipmentSlotParent.childCount; i++)
+        {
+            EquipmentSlotUI equipSlot =
+                equipmentSlotParent.GetChild(i).GetComponent<EquipmentSlotUI>();
+
+            if (equipSlot == null)
+                continue;
+
+            RectTransform rect = equipSlot.GetComponent<RectTransform>();
+
+            if (RectTransformUtility.RectangleContainsScreenPoint(
+                    rect,
+                    eventData.position,
+                    cam))
+            {
+                return equipSlot;
+            }
+        }
+
+        return null;
+    }
+
+    public bool TryEquipItem(int inventoryIndex, EquipmentSlotUI equipSlot)
+    {
+        if (equipSlot == null)
+            return false;
+
+        InventorySlotData slotData = slots[inventoryIndex];
+
+        if (slotData == null || slotData.IsEmpty)
+            return false;
+
+        ItemData newItem = slotData.item;
+
+        if (!equipSlot.CanEquip(newItem))
+        {
+            Debug.Log("이 슬롯에 장착할 수 없는 아이템입니다.");
+            return false;
+        }
+
+        bool success = equipmentManager.Equip(newItem, out ItemData oldItem);
+
+        if (!success)
+            return false;
+
+        slotData.Clear();
+
+        if (oldItem != null)
+        {
+            slotData.SetItem(oldItem, 1);
+        }
+
+        equipSlot.SetIcon(newItem);
+
+        RefreshUI();
+
+        return true;
+    }
+    public bool TryUnequipItem(EquipSlotType slotType, int inventoryIndex)
+    {
+        if (equipmentManager == null)
+            return false;
+
+        if (inventoryIndex < 0 || inventoryIndex >= slots.Count)
+            return false;
+
+        if (!slots[inventoryIndex].IsEmpty)
+        {
+            Debug.Log("빈 인벤토리 슬롯에만 해제할 수 있습니다.");
+            return false;
+        }
+
+        ItemData equippedItem = equipmentManager.GetEquippedItem(slotType);
+
+        if (equippedItem == null)
+            return false;
+
+        slots[inventoryIndex].SetItem(equippedItem, 1);
+
+        equipmentManager.Unequip(slotType);
+
+        EquipmentSlotUI equipSlot = GetEquipmentSlotByType(slotType);
+        if (equipSlot != null)
+            equipSlot.SetIcon(null);
+
+        RefreshUI();
+
+        return true;
+    }
+    private EquipmentSlotUI GetEquipmentSlotByType(EquipSlotType slotType)
+    {
+        if (equipmentSlotParent == null)
+            return null;
+
+        EquipmentSlotUI[] equipSlots =
+            equipmentSlotParent.GetComponentsInChildren<EquipmentSlotUI>(true);
+
+        foreach (EquipmentSlotUI slot in equipSlots)
+        {
+            if (slot.SlotType == slotType)
+                return slot;
+        }
+
+        return null;
+    }
 }

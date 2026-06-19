@@ -15,6 +15,7 @@ public class CharacterStats : MonoBehaviour
         }
     }
     public float MaxHp => GetStat(StatType.MaxHp);
+    public float MaxStamina => GetStat(StatType.MaxStamina);
     public float Attack => GetStat(StatType.Attack);
     public float Defense => GetStat(StatType.Defense);
     public float MoveSpeed => GetStat(StatType.MoveSpeed);

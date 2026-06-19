@@ -9,6 +9,7 @@ public class PlayerMining : MonoBehaviour
     [SerializeField] private float miningRange = 2f;
     [SerializeField] private LayerMask oreLayer;
     [SerializeField] private MiningProgressUI progressUI;
+    [SerializeField] private EquipmentManager equipmentManager;
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
@@ -44,18 +45,18 @@ public class PlayerMining : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        Debug.Log($"OnInteract È£ÃâµÊ: {context.phase}");
         if (!context.performed)
             return;
+
         if (isMining)
-        {
-            Debug.Log("ÀÌ¹Ì Ã¤±¤ Áß");
             return;
-        }
 
         if (nearestOre == null)
+            return;
+
+        if (equipmentManager == null || !equipmentManager.HasPickaxe())
         {
-            Debug.Log("Ã¤±¤ ½ÇÆÐ: ±ÙÃ³ ±¤¹° ¾øÀ½");
+            Debug.Log("°î±ªÀÌ¸¦ ÀåÂøÇØ¾ß Ã¤±¤ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
             return;
         }
 

@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe2ce7dfee617b343b9d78fdad9b049e, type: 3}
-  m_Name: PirateSaber
+  m_Name: Pickaxe
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: PirateSaber
-  icon: {fileID: -1303645908, guid: 73cef25bc19e442419f47b803f629847, type: 3}
+  itemName: PickAxe
+  icon: {fileID: -1799240979, guid: dfb8bef9abd0cf644a3161fca91224b2, type: 3}
   maxStack: 1
   itemType: 2
-  buyPrice: 100
-  sellPrice: 50
-  toolType: 0
+  buyPrice: 30
+  sellPrice: 10
+  toolType: 1
   equipSlotType: 1
   statModifiers:
   - statType: 1
-    value: 10
+    value: 5
   - statType: 4
-    value: 0.8
+    value: 1
   - statType: 5
-    value: 10
-  equipPrefab: {fileID: 4764510604297581600, guid: 4fd9eb849eafb164696c32851bca7d83, type: 3}
+    value: 3
+  equipPrefab: {fileID: 6687321938703416651, guid: f1bed9005e62be340b7a3bcaaa7d32c7, type: 3}

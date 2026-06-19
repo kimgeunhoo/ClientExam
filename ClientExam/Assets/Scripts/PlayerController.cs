@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private Animator animator;
 
+    [Header("Interactor")]
+    [SerializeField] private PlayerShopInteractor playerShopInteractor;
 
     private static readonly int MoveSpeedHash = Animator.StringToHash("MoveSpeed");
     private static readonly int IsGroundedHash = Animator.StringToHash("IsGrounded");
@@ -96,6 +98,7 @@ public class PlayerController : MonoBehaviour
         input.Player.Inventory.canceled += inventoryController.OnInventory;
         input.Player.Pickup.performed += playerRooting.OnPickup;
         input.Player.Interact.performed += playerMining.OnInteract;
+        input.Player.Interact.performed += playerShopInteractor.OnInteract;
 
         input.Player.Jump.performed += OnJump; 
         input.Player.Jump.canceled += OnJump;
@@ -123,6 +126,7 @@ public class PlayerController : MonoBehaviour
 
         input.Player.Pickup.performed -= playerRooting.OnPickup;
         input.Player.Interact.performed -= playerMining.OnInteract;
+        input.Player.Interact.performed -= playerShopInteractor.OnInteract;
 
         input.Player.Jump.performed -= OnJump;
         input.Player.Jump.canceled -= OnJump;

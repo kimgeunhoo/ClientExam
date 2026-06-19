@@ -87,6 +87,22 @@ public class ItemIconUI : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         isDragging = false;
         canvasGroup.blocksRaycasts = true;
 
+        EquipmentSlotUI equipSlot = inventoryManager.GetEquipmentSlotUnderMouse(eventData);
+
+        if (equipSlot != null)
+        {
+            bool equipped =
+                inventoryManager.TryEquipItem(slotIndex, equipSlot);
+
+            if (!equipped)
+            {
+                rectTransform.anchoredPosition =
+                    inventoryManager.GetSlotPositionInItemParent(slotIndex);
+            }
+
+            return;
+        }
+
         int targetIndex = inventoryManager.GetSlotIndexUnderMouse(eventData);
 
         if (targetIndex < 0)

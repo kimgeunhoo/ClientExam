@@ -9,7 +9,15 @@ public class ItemData : ScriptableObject
     public int maxStack = 1;
     public ItemType itemType;
 
+    [Header("Price")]
+    public int buyPrice = 100;
+    public int sellPrice = 50;
+
+    [Header("Tool")]
+    public ToolType toolType;
+
     [Header("Equipment")]
     public EquipSlotType equipSlotType;
     public StatModifierData[] statModifiers;
+    public GameObject equipPrefab;
 }
