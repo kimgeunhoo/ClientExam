@@ -29,7 +29,7 @@ public class SellAmountPopup : MonoBehaviour
         int maxAmount,
         int price,
         RectTransform targetButton,
-        System.Action<ItemData, int, int> confirmAction)
+        System.Action<int, ItemData, int, int> confirmAction)
     {
         currentSlotIndex = slotIndex;
         currentItem = item;

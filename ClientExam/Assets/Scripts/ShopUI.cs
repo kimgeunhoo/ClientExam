@@ -63,14 +63,19 @@ public class ShopUI : MonoBehaviour
     {
         ClearChildren(buyContentParent);
 
-        if (currentMerchant == null)
+        if (currentMerchant == null || currentMerchant.SellItems == null)
             return;
 
-        foreach (ShopItemData shopItem in currentMerchant.SellItems)
+        ShopItemData[] sellItems = currentMerchant.SellItems;
+
+        for (int i = 0; i < sellItems.Length; i++)
         {
+            ShopItemData shopItem = sellItems[i];
+
             ShopSlotUI slot = Instantiate(buySlotPrefab, buyContentParent);
 
-            slot.Init(
+            slot.InitBuy(
+                i,
                 shopItem.itemData,
                 shopItem.amount,
                 shopItem.price,
@@ -108,7 +113,7 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    private void OnBuyClicked(ItemData item, int amount, int price)
+    private void OnBuyClicked(int shopItemIndex, ItemData item, int amount, int price)
     {
         bool success = shopManager.BuyItem(item, amount, price);
 
@@ -116,38 +121,21 @@ public class ShopUI : MonoBehaviour
             RefreshAll();
     }
 
-    private void OnSellClicked(ItemData item, int amount, int price)
+    private void OnSellClicked(int slotIndex, ItemData item, int amount, int price, RectTransform buttonRect)
     {
-        bool success = shopManager.SellItem(item, amount);
-
-        if (success)
-            RefreshAll();
-    }
-    private void OnSellClicked(ItemData item, int count, int price, RectTransform buttonRect)
-    {
-        if (count >= popupThreshold)
+        if (amount > 1)
         {
-            if (sellAmountPopup == null)
-            {
-                Debug.LogError("SellAmountPopup이 ShopUI에 연결되지 않았습니다.");
-                return;
-            }
-
-            sellAmountPopup.Show(
-                item,
-                count,
-                price,
-                buttonRect,
-                SellSelectedAmount);
+            sellAmountPopup.Show(slotIndex, item, amount, price, buttonRect, SellSelectedAmount);
 
             return;
         }
 
-        SellSelectedAmount(item, 1, price);
+        SellSelectedAmount(slotIndex, item, 1, price);
     }
-    private void SellSelectedAmount(ItemData item, int amount, int price)
+
+    private void SellSelectedAmount(int slotIndex, ItemData item, int amount, int price)
 {
-    bool success = shopManager.SellItem(item, amount, price);
+    bool success = shopManager.SellItemFromSlot(slotIndex, amount, price);
 
     if (success)
         RefreshAll();

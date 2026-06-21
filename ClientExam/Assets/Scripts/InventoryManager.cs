@@ -411,4 +411,31 @@ public class InventoryManager : MonoBehaviour
 
         return null;
     }
+
+    public bool RemoveItemAt(int slotIndex, int amount, bool refresh = true)
+    {
+        if (slotIndex < 0 || slotIndex >= slots.Count)
+            return false;
+
+        if (amount <= 0)
+            return false;
+
+        InventorySlotData slot = slots[slotIndex];
+
+        if (slot == null || slot.IsEmpty)
+            return false;
+
+        if (slot.count < amount)
+            return false;
+
+        slot.count -= amount;
+
+        if (slot.count <= 0)
+            slot.Clear();
+
+        if (refresh)
+            RefreshUI();
+
+        return true;
+    }
 }

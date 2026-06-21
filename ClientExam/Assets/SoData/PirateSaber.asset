@@ -28,3 +28,6 @@ MonoBehaviour:
   - statType: 5
     value: 10
   equipPrefab: {fileID: 4764510604297581600, guid: 4fd9eb849eafb164696c32851bca7d83, type: 3}
+  equipLocalPosition: {x: 0.08, y: -0.024, z: -0.029}
+  equipLocalEulerAngles: {x: 4.457219, y: 89.39046, z: 82.20465}
+  equipLocalScale: {x: 1, y: 1, z: 1}

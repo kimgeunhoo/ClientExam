@@ -69,9 +69,9 @@ public class EquipmentManager : MonoBehaviour
 
         currentWeaponObject = Instantiate(item.equipPrefab, weaponSocket);
 
-        currentWeaponObject.transform.localPosition = Vector3.zero;
-        currentWeaponObject.transform.localRotation = Quaternion.identity;
-        currentWeaponObject.transform.localScale = Vector3.one;
+        currentWeaponObject.transform.localPosition = item.equipLocalPosition;
+        currentWeaponObject.transform.localRotation = Quaternion.Euler(item.equipLocalEulerAngles);
+        currentWeaponObject.transform.localScale = item.equipLocalScale;
     }
 
     public bool HasPickaxe()

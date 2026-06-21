@@ -15,45 +15,41 @@ public class ShopSlotUI : MonoBehaviour
     private int amount;
     private int price;
     private System.Action<ItemData, int, int> onClick;
-
-    public void Init(
-       int slotIndex,
-       ItemData item,
-       int amount,
-       int price,
-       string buttonLabel,
-       System.Action<ItemData, int, int> clickAction)
+    public void InitBuy(
+    int shopItemIndex,
+    ItemData item,
+    int amount,
+    int price,
+    string buttonLabel,
+    System.Action<int, ItemData, int, int> clickAction)
     {
-        inventorySlotIndex = slotIndex;
         itemData = item;
         this.amount = amount;
         this.price = price;
-        onClick = clickAction;
 
         iconImage.sprite = item.icon;
         iconImage.enabled = item.icon != null;
 
         priceText.text = $"Price : {price}";
-        buttonText.text = "Sold";
+        buttonText.text = buttonLabel;
 
         if (amountText != null)
             amountText.text = amount > 1 ? $"x{amount}" : "";
 
-        RectTransform buttonRect = actionButton.GetComponent<RectTransform>();
-
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(() =>
         {
-            onClick?.Invoke(inventorySlotIndex, itemData, amount, this.price, buttonRect);
+            clickAction?.Invoke(shopItemIndex, itemData, this.amount, this.price);
         });
     }
 
     public void InitSell(
+    int slotIndex,
     ItemData item,
     int count,
     int price,
     string buttonLabel,
-    System.Action<ItemData, int, int, RectTransform> clickAction)
+    System.Action<int, ItemData, int, int, RectTransform> clickAction)
     {
         itemData = item;
         amount = count;
@@ -73,7 +69,7 @@ public class ShopSlotUI : MonoBehaviour
         actionButton.onClick.RemoveAllListeners();
         actionButton.onClick.AddListener(() =>
         {
-            clickAction?.Invoke(itemData, amount, this.price, buttonRect);
+            clickAction?.Invoke(slotIndex, itemData, amount, this.price, buttonRect);
         });
     }
 }

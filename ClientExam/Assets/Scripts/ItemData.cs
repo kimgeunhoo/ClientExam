@@ -16,8 +16,11 @@ public class ItemData : ScriptableObject
     [Header("Tool")]
     public ToolType toolType;
 
-    [Header("Equipment")]
+    [Header("Equipment Model")]
     public EquipSlotType equipSlotType;
     public StatModifierData[] statModifiers;
     public GameObject equipPrefab;
+    public Vector3 equipLocalPosition;
+    public Vector3 equipLocalEulerAngles;
+    public Vector3 equipLocalScale = Vector3.one;
 }

@@ -11,6 +11,9 @@ public class DropItem : MonoBehaviour
     [SerializeField] private GameObject pickupTextRoot;
     [SerializeField] private TextMeshProUGUI pickupText;
 
+    [Header("Quest Manager")]
+    [SerializeField] private QuestManager questManager;
+
     public ItemData ItemData => itemData;
     public int Amount => amount;
 
@@ -67,6 +70,7 @@ public class DropItem : MonoBehaviour
         //Debug.Log($"PickUp 시도: {itemData.name}, amount={amount}");
 
         bool success = inventory.AddItem(itemData, amount);
+        questManager.OnItemCollected(itemData, amount);
 
        // Debug.Log($"AddItem 결과: {success}");
 

@@ -12,8 +12,10 @@ public class ShopManager : MonoBehaviour
             return false;
         }
 
-        bool added = inventoryManager.AddItem(item, amount);
+        int totalPrice = price * amount;
 
+        bool added = inventoryManager.AddItem(item, amount);
+       
         if (!added)
         {
             inventoryManager.AddGold(price);
@@ -24,15 +26,17 @@ public class ShopManager : MonoBehaviour
         return true;
     }
 
-    public bool SellItem(ItemData item, int amount, int count = 1)
+    public bool SellItemFromSlot(int slotIndex, int amount, int sellPrice)
     {
-        if (inventoryManager.GetItemCount(item) < amount)
+        if (inventoryManager == null)
             return false;
 
-        int sellPrice = item.sellPrice * count;
+        bool removed = inventoryManager.RemoveItemAt(slotIndex, amount);
 
-        inventoryManager.RemoveItem(item, amount);
-        inventoryManager.AddGold(sellPrice);
+        if (!removed)
+            return false;
+
+        inventoryManager.AddGold(sellPrice * amount);
 
         return true;
     }
