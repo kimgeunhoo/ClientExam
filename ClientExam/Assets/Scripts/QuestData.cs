@@ -20,6 +20,8 @@ public class QuestData : ScriptableObject
     public string questId;
     public string questName;
     public QuestType questType;
+    [TextArea]
+    public string description;
 
     [Header("Goal")]
     public QuestGoalType goalType;

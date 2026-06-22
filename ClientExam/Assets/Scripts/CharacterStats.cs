@@ -33,9 +33,10 @@ public class CharacterStats : MonoBehaviour
         if (!bonusStats.ContainsKey(statType))
             bonusStats.Add(statType, 0f);
 
-        float baeValue = statType switch
+        float baseValue = statType switch
         {
             StatType.MaxHp => baseStatData.maxHp,
+            StatType.MaxStamina => baseStatData.maxStamina,
             StatType.Attack => baseStatData.attack,
             StatType.Defense => baseStatData.defense,
             StatType.MoveSpeed => baseStatData.moveSpeed,
@@ -44,7 +45,7 @@ public class CharacterStats : MonoBehaviour
             _ => 0
         };
 
-        return baeValue + bonusStats[statType];
+        return baseValue + bonusStats[statType];
     }
     public void AddModifier(StatModifierData modifier)
     {

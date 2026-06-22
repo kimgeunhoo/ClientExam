@@ -70,7 +70,10 @@ public class DropItem : MonoBehaviour
         //Debug.Log($"PickUp 시도: {itemData.name}, amount={amount}");
 
         bool success = inventory.AddItem(itemData, amount);
-        questManager.OnItemCollected(itemData, amount);
+        if (questManager != null)
+        {
+            questManager.OnItemCollected(itemData, amount);
+        }
 
        // Debug.Log($"AddItem 결과: {success}");
 

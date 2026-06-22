@@ -10,14 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d5a6b4d9eae7f040ab49faa55a9787b, type: 3}
-  m_Name: OneQuest
+  m_Name: Daily_MiningOre
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   questId: 0
-  questName: Mining Iron
-  questType: 0
-  goalType: 2
+  questName: Collect IronOre
+  questType: 1
+  description: I need to fill My iron ore quota for a day, so I'd Apperciate your
+    help.
+  goalType: 0
   targetItem: {fileID: 11400000, guid: 53addc6f6939a7d4eae2082ebe6b3693, type: 2}
-  requiredAmount: 30
-  rewardItem: {fileID: 11400000, guid: d8c137202bea2074db14688a64c01b1d, type: 2}
+  requiredAmount: 12
+  rewardItem: {fileID: 11400000, guid: d6695fdb60e964e4b8484336ae5f66d1, type: 2}
   rewardAmount: 1
-  rewardGold: 1000
+  rewardGold: 100

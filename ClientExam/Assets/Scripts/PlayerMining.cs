@@ -20,7 +20,7 @@ public class PlayerMining : MonoBehaviour
 
     private Coroutine miningRoutine;
     private MineableOre previousNearestOre;
-
+    
     public bool IsMining => isMining;
     private void Update()
     {
@@ -42,26 +42,24 @@ public class PlayerMining : MonoBehaviour
 
         previousNearestOre = nearestOre;
     }
-
-    public void OnInteract(InputAction.CallbackContext context)
+    public bool TryInteract()
     {
-        if (!context.performed)
-            return;
-
         if (isMining)
-            return;
+            return false;
 
         if (nearestOre == null)
-            return;
+            return false;
 
-        if (equipmentManager == null || !equipmentManager.HasPickaxe())
+        if (equipmentManager == null ||
+            !equipmentManager.HasPickaxe())
         {
             Debug.Log("°î±ªÀÌ¸¦ ÀåÂøÇØ¾ß Ã¤±¤ÇÒ ¼ö ÀÖ½À´Ï´Ù.");
-            return;
+            return true;
         }
 
-        Debug.Log($"Ã¤±¤ ½ÃÀÛ: {nearestOre.name}");
         miningRoutine = StartCoroutine(MiningRoutine(nearestOre));
+
+        return true;
     }
 
     public void CancelMiningByInput()

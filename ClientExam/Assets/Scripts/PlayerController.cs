@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Interactor")]
     [SerializeField] private PlayerShopInteractor playerShopInteractor;
+    [SerializeField] private QuestNpc currentQuestNpc;
 
     private static readonly int MoveSpeedHash = Animator.StringToHash("MoveSpeed");
     private static readonly int IsGroundedHash = Animator.StringToHash("IsGrounded");
@@ -50,9 +51,11 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private InventoryController inventoryController;
+    private QuestUIController questUIController;
     private PlayerInputAction input;
     private PlayerRooting playerRooting;
     private PlayerMining playerMining;
+    private PlayerQuestInteractor playerQuestInteractor;
     private Vector2 moveInput;
     private Vector2 lookInput;
 
@@ -76,10 +79,14 @@ public class PlayerController : MonoBehaviour
             animator = GetComponentInChildren<Animator>();
         if (inventoryController == null)
             inventoryController = GetComponent<InventoryController>();
+        if (questUIController == null)
+            questUIController = GetComponent<QuestUIController>();
         if (playerRooting == null)
             playerRooting = GetComponentInChildren<PlayerRooting>();
         if (playerMining == null)
-            playerMining= GetComponent<PlayerMining>();
+            playerMining = GetComponent<PlayerMining>();
+        if (playerQuestInteractor == null)
+            playerQuestInteractor = GetComponent<PlayerQuestInteractor>();
         input = new PlayerInputAction();
     }
     private void OnEnable()
@@ -96,9 +103,11 @@ public class PlayerController : MonoBehaviour
         input.Player.Zoom.canceled += OnZoom;
         input.Player.Inventory.performed += inventoryController.OnInventory;
         input.Player.Inventory.canceled += inventoryController.OnInventory;
-        input.Player.Pickup.performed += playerRooting.OnPickup;
-        input.Player.Interact.performed += playerMining.OnInteract;
+        input.Player.Pickup.performed += OnPickup;
+        input.Player.Interact.performed += OnInteract;
         input.Player.Interact.performed += playerShopInteractor.OnInteract;
+
+        input.Player.Quest.performed += OnQuest;
 
         input.Player.Jump.performed += OnJump; 
         input.Player.Jump.canceled += OnJump;
@@ -124,12 +133,15 @@ public class PlayerController : MonoBehaviour
         input.Player.Inventory.performed -= inventoryController.OnInventory;
         input.Player.Inventory.canceled -= inventoryController.OnInventory;
 
-        input.Player.Pickup.performed -= playerRooting.OnPickup;
-        input.Player.Interact.performed -= playerMining.OnInteract;
+        input.Player.Pickup.performed -= OnPickup;
+        input.Player.Interact.performed -= OnInteract;
         input.Player.Interact.performed -= playerShopInteractor.OnInteract;
+
+        input.Player.Quest.performed -= OnQuest;
 
         input.Player.Jump.performed -= OnJump;
         input.Player.Jump.canceled -= OnJump;
+
         input.Disable();
     }
 
@@ -170,6 +182,33 @@ public class PlayerController : MonoBehaviour
             playerMining.CancelMiningByInput();
 
         jumpPressed = true;
+    }
+    private void OnPickup(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+            return;
+
+        playerRooting.TryInteract();
+    }
+    public void OnInteract(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed)
+            return;
+
+        if (playerQuestInteractor != null && playerQuestInteractor.TryInteract())
+            return;
+
+        if (playerRooting != null && playerRooting.TryInteract())
+            return;
+
+        if (playerMining != null && playerMining.TryInteract())
+            return;
+    }
+
+
+    private void OnQuest(InputAction.CallbackContext context)
+    {
+        questUIController.ToggleQuestPanel();
     }
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {

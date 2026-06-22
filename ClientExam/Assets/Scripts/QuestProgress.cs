@@ -9,6 +9,9 @@ public class QuestProgress
     public bool isCompleted;
     public bool isRewarded;
 
+    public bool isAccepted;
+    public bool isTracked;
+
     public string lastRewardDate;
 
     public bool CanComplete => currentAmount >= quest.requiredAmount;

@@ -1,11 +1,11 @@
-using NUnit.Framework.Internal.Execution;
+
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerRooting : MonoBehaviour
 {
     [Header("Inventory")]
     [SerializeField] private InventoryManager inventoryManager;
+    [SerializeField] private QuestManager questManager;
 
     [Header("Pickup")]
     [SerializeField] private float pickupRange = 2f;
@@ -18,12 +18,10 @@ public class PlayerRooting : MonoBehaviour
         FindNearestItem();
         UpdatePickupText();
     }
-    public void OnPickup(InputAction.CallbackContext context)
-    {
-        if (!context.performed)
-            return;
 
-        TryPickUp();
+    public bool TryInteract()
+    {
+        return TryPickUp();
     }
 
     private void FindNearestItem()
@@ -58,23 +56,31 @@ public class PlayerRooting : MonoBehaviour
         previousNearestItem = nearestItem;
     }
 
-    private void TryPickUp()
+    private bool TryPickUp()
     {
         if (nearestItem == null)
         {
             Debug.Log("줍기 실패: nearestItem 없음");
-            return;
+            return false;
         }
 
         Debug.Log($"줍기 입력 감지: {nearestItem.name}");
 
+        ItemData itemData = nearestItem.ItemData;
+        int count = nearestItem.Amount;
 
         bool success = nearestItem.PickUp(inventoryManager);
+        if (questManager != null)
+        {
+            questManager.OnItemCollected(itemData, count);
+        }
 
         if (!success)
         {
             Debug.Log("아이템을 주울 수 없습니다. 인벤토리가 가득 찼거나 ItemData가 없습니다.");
+            return false;
         }
+        return success;
     }
 
     private void OnDrawGizmosSelected()
