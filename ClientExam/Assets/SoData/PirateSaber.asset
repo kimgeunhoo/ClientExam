@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2ce7dfee617b343b9d78fdad9b049e, type: 3}
   m_Name: PirateSaber
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: PirateSaber
+  itemName: "\uD574\uC801\uC758 \uAC80"
   icon: {fileID: -1303645908, guid: 73cef25bc19e442419f47b803f629847, type: 3}
   maxStack: 1
   itemType: 2

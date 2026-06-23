@@ -39,7 +39,7 @@ public class SellAmountPopup : MonoBehaviour
         root.SetActive(true);
         root.transform.SetAsLastSibling();
 
-        titleText.text = "How Many would you like to sell this Item?";
+        titleText.text = "몇 개를 판매하시겠습니까?";
 
         amountSlider.minValue = 1;
         amountSlider.maxValue = maxAmount;

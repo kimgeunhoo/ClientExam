@@ -65,10 +65,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'E: Mining Iron Ore'
+  m_text: "E: \uCCA0\uAD11\uC11D \uCE90\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 532a627f9f45b6d42ba9309f2844449d, type: 2}
+  m_sharedMaterial: {fileID: -5291990807661324367, guid: 532a627f9f45b6d42ba9309f2844449d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -544,7 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773e6298b46bd0e4f968bf60640f0e67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MineableOre
-  oreName: Iron
+  oreName: "\uCCA0\uAD11\uC11D"
   miningTime: 3
   respawnTime: 10
   drops:

@@ -118,6 +118,6 @@ public class MineableOre : MonoBehaviour
     private void RefreshInteractText()
     {
         if (interactText != null)
-            interactText.text = $"E : Mining {oreName}";
+            interactText.text = $"E : {oreName} Ã¤±¤ ÇÏ±â";
     }
 }

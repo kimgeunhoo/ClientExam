@@ -6,6 +6,7 @@ public class ShopUI : MonoBehaviour
 {
     [Header("Root")]
     [SerializeField] private GameObject shopPanel;
+    [SerializeField] private PlayerController playerController;
 
     [Header("Buy")]
     [SerializeField] private Transform buyContentParent;
@@ -37,7 +38,8 @@ public class ShopUI : MonoBehaviour
     {
         currentMerchant = merchant;
         shopPanel.SetActive(true);
-
+        if (playerController != null)
+            playerController.SetInputBlocked(true);
         RefreshAll();
     }
 
@@ -45,6 +47,8 @@ public class ShopUI : MonoBehaviour
     {
         currentMerchant = null;
         shopPanel.SetActive(false);
+        if (playerController != null)
+            playerController.SetInputBlocked(false);
     }
 
     private void RefreshAll()
@@ -79,7 +83,7 @@ public class ShopUI : MonoBehaviour
                 shopItem.itemData,
                 shopItem.amount,
                 shopItem.price,
-                "Buy",
+                "구매",
                 OnBuyClicked);
         }
     }
@@ -108,7 +112,7 @@ public class ShopUI : MonoBehaviour
                 item,
                 count,
                 unitPrice,
-                "Sold",
+                "판매",
                 OnSellClicked);
         }
     }

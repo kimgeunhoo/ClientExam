@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2ce7dfee617b343b9d78fdad9b049e, type: 3}
   m_Name: Emerald
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: Emerald
+  itemName: "\uC5D0\uBA54\uB784\uB4DC"
   icon: {fileID: 1463933605, guid: 2941f40e5b5fb9c4b9c058c22760b078, type: 3}
   maxStack: 99
   itemType: 0

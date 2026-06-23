@@ -1,12 +1,15 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class QuestNpc : MonoBehaviour
 {
     [SerializeField] private string npcName = "Admin";
-    [SerializeField] private QuestData questData;
     [SerializeField] private QuestDialogueUI dialogueUI;
     [SerializeField] private NpcPromptUI promptUI;
+    [SerializeField] private QuestManager questManager;
+    [Header("0 = OneTime, 1 = Daily")]
+    [SerializeField] private QuestData[] questData;
     private void Start()
     {
         HidePrompt();
@@ -14,7 +17,7 @@ public class QuestNpc : MonoBehaviour
     public void ShowPrompt()
     {
         if (promptUI != null)
-            promptUI.Show($"E : Talk to {npcName}");
+            promptUI.Show($"E : {npcName}과 대화하기");
     }
 
     public void HidePrompt()
@@ -39,7 +42,49 @@ public class QuestNpc : MonoBehaviour
             return;
         }
 
+        QuestData selectedQuest = GetAvailableQuest();
         HidePrompt();
-        dialogueUI.Open(npcName, questData);
+
+        if (selectedQuest == null)
+        {
+            dialogueUI.OpenNoQuest(
+                npcName,
+                "오늘은 더 부탁할 일이 없네."
+            );
+
+            return;
+        }
+        dialogueUI.Open(npcName, selectedQuest);
+    }
+
+    private QuestData GetAvailableQuest()
+    {
+        QuestData oneTimeQuest = GetQuest(0);
+        QuestData dailyQuest = GetQuest(1);
+
+        if (oneTimeQuest != null &&
+            !questManager.IsQuestRewarded(oneTimeQuest))
+        {
+            return oneTimeQuest;
+        }
+
+        if (dailyQuest != null)
+        {
+            if (!questManager.IsDailyQuestCompletedToday(dailyQuest))
+                return dailyQuest;
+        }
+
+        return null;
+    }
+
+    private QuestData GetQuest(int index)
+    {
+        if (questData == null)
+            return null;
+
+        if (index < 0 || index >= questData.Length)
+            return null;
+
+        return questData[index];
     }
 }

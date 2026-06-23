@@ -46,7 +46,7 @@ public class DropItem : MonoBehaviour
         if (pickupText == null || itemData == null)
             return;
 
-        pickupText.text = $"F : Get {itemData.itemName} ";
+        pickupText.text = $"F : {itemData.itemName} ащ╠Б";
     }
     public void SetAmount(int newAmount)
     {

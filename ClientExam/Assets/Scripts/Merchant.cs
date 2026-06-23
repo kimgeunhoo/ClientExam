@@ -23,7 +23,7 @@ public class Merchant : MonoBehaviour
 
     private void Start()
     {
-        interactText.text = $"E : talk to {merchantName}";
+        interactText.text = $"E : {merchantName}와 거래하기";
     }
 
     public void ShowInteractText()

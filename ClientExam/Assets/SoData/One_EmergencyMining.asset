@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: One_EmergencyMining
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   questId: 1
-  questName: Mining Iron
+  questName: "\uCCA0\uAD11\uC11D \uAD6C\uD558\uAE30"
   questType: 0
-  description: "Iron ore stock suddenly ran out. \nIf your help, I'll give you a
-    proper case."
+  description: "\uCCA0\uAD11\uC11D \uC7AC\uACE0\uAC00 \uC608\uC0C1\uACFC \uB2E4\uB974\uAC8C
+    \uBE60\uB974\uAC8C \uACE0\uAC08\uB418\uC5C8\uC5B4.\n30\uAC1C \uC815\uB3C4 \uBAA8\uC544\uC624\uBA74
+    \uC0AC\uB840\uB97C \uD574\uC8FC\uACA0\uB124."
   goalType: 0
   targetItem: {fileID: 11400000, guid: 53addc6f6939a7d4eae2082ebe6b3693, type: 2}
   requiredAmount: 30

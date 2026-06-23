@@ -11,6 +11,7 @@ public class QuestDialogueUI : MonoBehaviour
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI npcNameText;
     [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private PlayerController playerController;
 
     [Header("Request Panel")]
     [SerializeField] private GameObject requestPanel;
@@ -47,13 +48,19 @@ public class QuestDialogueUI : MonoBehaviour
         disAgreeButton.onClick.AddListener(Close);
         closeButton.onClick.AddListener(Close);
     }
+    private void OpenBase(string npcName)
+    {
+        panel.SetActive(true);
+        npcNameText.text = npcName;
 
+        if (playerController != null)
+            playerController.SetInputBlocked(true);
+    }
     public void Open(string npcName, QuestData quest)
     {
         currentQuest = quest;
-        Debug.Log($"대화 UI 열림: {npcName}, Quest: {quest?.questName}");
-        panel.SetActive(true);
-        npcNameText.text = npcName;
+
+        OpenBase(npcName);
 
         Refresh();
     }
@@ -197,5 +204,23 @@ public class QuestDialogueUI : MonoBehaviour
         getRewardButton.gameObject.SetActive(false);
 
         currentQuest = null;
+
+        if (playerController != null)
+            playerController.SetInputBlocked(false);
+    }
+
+    public void OpenNoQuest(string npcName, string message)
+    {
+        currentQuest = null;
+        OpenBase(npcName);
+
+        npcNameText.text = npcName;
+        dialogueText.text = message;
+
+        requestPanel.SetActive(false);
+        rewardPanel.SetActive(false);
+
+        acceptButton.gameObject.SetActive(false);
+        getRewardButton.gameObject.SetActive(false);
     }
 }

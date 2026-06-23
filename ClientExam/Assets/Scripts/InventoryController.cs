@@ -6,6 +6,7 @@ public class InventoryController : MonoBehaviour
 {
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private InventoryManager inventoryManager;
+    [SerializeField] private PlayerController playerController;
 
     public bool IsOpen { get; private set; }
 
@@ -15,7 +16,7 @@ public class InventoryController : MonoBehaviour
         IsOpen = false;
     }
 
-    public void OnInventory(InputAction.CallbackContext context)
+    public void OpenInventory(InputAction.CallbackContext context)
     {
         if (!context.performed)
             return;
@@ -27,7 +28,7 @@ public class InventoryController : MonoBehaviour
     {
         IsOpen = !IsOpen;
         inventoryPanel.SetActive(IsOpen);
-
+        playerController.SetInputBlocked(IsOpen);
         if (IsOpen)
             inventoryManager.RefreshAfterOpen();
     }

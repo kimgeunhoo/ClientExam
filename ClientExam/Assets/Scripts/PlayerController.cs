@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
     private bool wasGrounded;
 
+    private bool isInputBlocked;
 
     private void Awake()
     {
@@ -101,8 +102,8 @@ public class PlayerController : MonoBehaviour
         input.Player.Look.canceled += OnLook;
         input.Player.Zoom.performed += OnZoom;
         input.Player.Zoom.canceled += OnZoom;
-        input.Player.Inventory.performed += inventoryController.OnInventory;
-        input.Player.Inventory.canceled += inventoryController.OnInventory;
+        input.Player.Inventory.performed += inventoryController.OpenInventory;
+        input.Player.Inventory.canceled += inventoryController.OpenInventory;
         input.Player.Pickup.performed += OnPickup;
         input.Player.Interact.performed += OnInteract;
         input.Player.Interact.performed += playerShopInteractor.OnInteract;
@@ -130,8 +131,8 @@ public class PlayerController : MonoBehaviour
         input.Player.Look.canceled -= OnLook;
         input.Player.Zoom.performed -= OnZoom;
         input.Player.Zoom.canceled -= OnZoom;
-        input.Player.Inventory.performed -= inventoryController.OnInventory;
-        input.Player.Inventory.canceled -= inventoryController.OnInventory;
+        input.Player.Inventory.performed -= inventoryController.OpenInventory;
+        input.Player.Inventory.canceled -= inventoryController.OpenInventory;
 
         input.Player.Pickup.performed -= OnPickup;
         input.Player.Interact.performed -= OnInteract;
@@ -154,7 +155,7 @@ public class PlayerController : MonoBehaviour
         if (ctx.performed)
             playerMining.CancelMiningByInput();
 
-        if (inventoryController != null && inventoryController.IsOpen)
+        if (isInputBlocked)
         {
             moveInput = Vector2.zero;
             return;
@@ -168,7 +169,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnLook(InputAction.CallbackContext ctx)
     {
-        if (inventoryController != null && inventoryController.IsOpen)
+        if (isInputBlocked)
         {
             moveInput = Vector2.zero;
             return;
@@ -349,6 +350,25 @@ public class PlayerController : MonoBehaviour
 
         wasGrounded = isGrounded;
         jumpPressed = false;
+    }
+
+    public void SetInputBlocked(bool blocked)
+    {
+        isInputBlocked = blocked;
+
+        if (blocked)
+        {
+            moveInput = Vector2.zero;
+            lookInput = Vector2.zero;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
 }

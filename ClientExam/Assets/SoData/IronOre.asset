@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2ce7dfee617b343b9d78fdad9b049e, type: 3}
   m_Name: IronOre
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: IronOre
+  itemName: "\uCCA0\uAD11\uC11D"
   icon: {fileID: 1169253845, guid: 077cea97292c92d49b67a37a95671632, type: 3}
   maxStack: 99
   itemType: 0

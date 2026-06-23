@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Daily_MiningOre
   m_EditorClassIdentifier: Assembly-CSharp::QuestData
   questId: 0
-  questName: Collect IronOre
+  questName: "\uCCA0\uAD11\uC11D \uBAA8\uC73C\uAE30"
   questType: 1
-  description: I need to fill My iron ore quota for a day, so I'd Apperciate your
-    help.
+  description: "\uC624\uB298 \uCCA0\uAD11\uC11D \uC218\uC694\uB294 \uC774\uC815\uB3C4\uC57C.
+    \uBD80\uD0C1\uD574\uB3C4 \uB420\uAE4C?"
   goalType: 0
   targetItem: {fileID: 11400000, guid: 53addc6f6939a7d4eae2082ebe6b3693, type: 2}
   requiredAmount: 12

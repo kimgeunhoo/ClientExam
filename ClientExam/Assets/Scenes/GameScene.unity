@@ -6700,7 +6700,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 502087773}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99996257
+  m_Size: 0.99984765
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -9502,6 +9502,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ff98438c2e9804cb153e32e2572373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EquipmentManager
+--- !u!114 &383642691 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4195077247928058377, guid: 780ccb405a949434b889e00d7ab57955, type: 3}
+  m_PrefabInstance: {fileID: 8705664364884074939}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43507c579e089854093a6292c9cda6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!4 &384356115 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8783788708762291149, guid: 8d08a3be3324f324e9c4b200b645df76, type: 3}
@@ -9559,6 +9570,22 @@ PrefabInstance:
       propertyPath: questManager
       value: 
       objectReference: {fileID: 1485945815}
+    - target: {fileID: 960118170418247204, guid: 072d4366401824d468eeb3722406ee14, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 383642691}
+    - target: {fileID: 2012219986463516114, guid: 072d4366401824d468eeb3722406ee14, type: 3}
+      propertyPath: m_text
+      value: "\uB2EB\uAE30"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314490706684024797, guid: 072d4366401824d468eeb3722406ee14, type: 3}
+      propertyPath: m_text
+      value: "\uBCF4\uC0C1 \uBC1B\uAE30"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3314490706684024797, guid: 072d4366401824d468eeb3722406ee14, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3415094675044375739, guid: 072d4366401824d468eeb3722406ee14, type: 3}
       propertyPath: m_Name
       value: QuestNPC
@@ -9567,6 +9594,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4689888089630117160, guid: 072d4366401824d468eeb3722406ee14, type: 3}
+      propertyPath: npcName
+      value: "\uC12C \uC8FC\uC778"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689888089630117160, guid: 072d4366401824d468eeb3722406ee14, type: 3}
+      propertyPath: questManager
+      value: 
+      objectReference: {fileID: 1485945815}
+    - target: {fileID: 4689888089630117160, guid: 072d4366401824d468eeb3722406ee14, type: 3}
+      propertyPath: questData.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4689888089630117160, guid: 072d4366401824d468eeb3722406ee14, type: 3}
+      propertyPath: 'questData.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 055711e722b5e264598da74c3b28624f, type: 2}
+    - target: {fileID: 4689888089630117160, guid: 072d4366401824d468eeb3722406ee14, type: 3}
+      propertyPath: 'questData.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 2e851f1443207184fbd43e9d6876f8c0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12609,7 +12656,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -814.38, y: 19.896973}
+  m_AnchoredPosition: {x: 712, y: 203}
   m_SizeDelta: {x: 191.19995, y: 319.78998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &521694425
@@ -16365,7 +16412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 715480818}
   m_Layer: 0
-  m_Name: GrmPF
+  m_Name: GemPF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -406509,6 +406556,7 @@ MonoBehaviour:
   questDatas:
   - {fileID: 11400000, guid: 055711e722b5e264598da74c3b28624f, type: 2}
   - {fileID: 11400000, guid: 2e851f1443207184fbd43e9d6876f8c0, type: 2}
+  testDayOffset: 0
 --- !u!1 &1486770625
 GameObject:
   m_ObjectHideFlags: 0
@@ -420756,7 +420804,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.018533755}
+  m_AnchoredPosition: {x: 0, y: 0.0000052142095}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &2111420563
@@ -421476,6 +421524,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 715480818}
     m_Modifications:
+    - target: {fileID: 1879681546877957512, guid: 8151ebcac96421348aab114583842f32, type: 3}
+      propertyPath: dropOnDestroy
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 3140630339822236877, guid: 8151ebcac96421348aab114583842f32, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21.07199
@@ -421670,6 +421722,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1689361279263244002, guid: db5051016cfdf7e4bbdf5ff122e2bc56, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 532a627f9f45b6d42ba9309f2844449d, type: 2}
+    - target: {fileID: 1689361279263244002, guid: db5051016cfdf7e4bbdf5ff122e2bc56, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -5291990807661324367, guid: 532a627f9f45b6d42ba9309f2844449d, type: 2}
+    - target: {fileID: 1689361279263244002, guid: db5051016cfdf7e4bbdf5ff122e2bc56, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2049670882420561104, guid: db5051016cfdf7e4bbdf5ff122e2bc56, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -421690,6 +421754,10 @@ PrefabInstance:
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 156030023}
+    - target: {fileID: 3180566752071019737, guid: db5051016cfdf7e4bbdf5ff122e2bc56, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 383642691}
     - target: {fileID: 3527344689981723998, guid: db5051016cfdf7e4bbdf5ff122e2bc56, type: 3}
       propertyPath: m_Size
       value: 1
@@ -421807,6 +421875,10 @@ PrefabInstance:
       value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 6604403620449058292, guid: db5051016cfdf7e4bbdf5ff122e2bc56, type: 3}
+      propertyPath: sellItems.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6604403620449058292, guid: db5051016cfdf7e4bbdf5ff122e2bc56, type: 3}
       propertyPath: sellItems.Array.data[1].price
       value: 50
       objectReference: {fileID: 0}
@@ -421821,7 +421893,7 @@ PrefabInstance:
     - target: {fileID: 6604403620449058292, guid: db5051016cfdf7e4bbdf5ff122e2bc56, type: 3}
       propertyPath: sellItems.Array.data[2].itemData
       value: 
-      objectReference: {fileID: 11400000, guid: 53addc6f6939a7d4eae2082ebe6b3693, type: 2}
+      objectReference: {fileID: 11400000, guid: d6695fdb60e964e4b8484336ae5f66d1, type: 2}
     - target: {fileID: 6727941555377902156, guid: db5051016cfdf7e4bbdf5ff122e2bc56, type: 3}
       propertyPath: m_ShowMaskGraphic
       value: 1
@@ -422191,9 +422263,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 580542890}
     - target: {fileID: 4195077247928058377, guid: 780ccb405a949434b889e00d7ab57955, type: 3}
+      propertyPath: turnSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195077247928058377, guid: 780ccb405a949434b889e00d7ab57955, type: 3}
       propertyPath: currentQuestNpc
       value: 
       objectReference: {fileID: 386846559}
+    - target: {fileID: 4195077247928058377, guid: 780ccb405a949434b889e00d7ab57955, type: 3}
+      propertyPath: mouseSensitivity
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4195077247928058377, guid: 780ccb405a949434b889e00d7ab57955, type: 3}
       propertyPath: thirdPersonFollow
       value: 
@@ -422206,6 +422286,10 @@ PrefabInstance:
       propertyPath: inventoryManager
       value: 
       objectReference: {fileID: 156030023}
+    - target: {fileID: 5224658142065747095, guid: 780ccb405a949434b889e00d7ab57955, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 383642691}
     - target: {fileID: 6386233386164759355, guid: 780ccb405a949434b889e00d7ab57955, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30.96

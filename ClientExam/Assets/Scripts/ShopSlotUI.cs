@@ -30,7 +30,7 @@ public class ShopSlotUI : MonoBehaviour
         iconImage.sprite = item.icon;
         iconImage.enabled = item.icon != null;
 
-        priceText.text = $"Price : {price}";
+        priceText.text = $"가격 : {price} Gold";
         buttonText.text = buttonLabel;
 
         if (amountText != null)
@@ -58,7 +58,7 @@ public class ShopSlotUI : MonoBehaviour
         iconImage.sprite = item.icon;
         iconImage.enabled = item.icon != null;
 
-        priceText.text = $"Price : {price}";
+        priceText.text = $"가격 : {price} Gold";
         buttonText.text = buttonLabel;
 
         if (amountText != null)

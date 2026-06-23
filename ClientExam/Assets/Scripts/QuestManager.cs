@@ -13,6 +13,28 @@ public class QuestManager : MonoBehaviour
 
     public event Action OnQuestChanged;
 
+    [Header("DayQuest Test")]
+    [SerializeField] private int testDayOffset = 0;
+
+    [ContextMenu("Force Daily Reset Check")]
+    public void ForceDailyResetCheck()
+    {
+        foreach (QuestProgress progress in quests)
+        {
+            ResetDailyQuest(progress);
+        }
+
+        RefreshQuestProgressFromInventory(false);
+
+        OnQuestChanged?.Invoke();
+        Debug.Log($"일일 퀘스트 강제 체크 실행 / Today: {GetToday()}");
+    }
+    public void AddTestDay()
+    {
+        testDayOffset++;
+        ForceDailyResetCheck();
+    }
+
     private void Start()
     {
         InitQuests();
@@ -25,7 +47,7 @@ public class QuestManager : MonoBehaviour
 
     private string GetToday()
     {
-        return DateTime.Now.ToString("yyyy-MM-dd");
+        return DateTime.Now.AddDays(testDayOffset).ToString("yyyy-MM-dd");
     }
 
     private void ResetDailyQuest(QuestProgress progress)
@@ -35,12 +57,15 @@ public class QuestManager : MonoBehaviour
 
         string today = GetToday();
 
-        if(progress.lastRewardDate != today)
+        if (progress.isRewarded && progress.lastRewardDate != today)
         {
-            progress.currentAmount = 0;
+            progress.isAccepted = false;
             progress.isCompleted = false;
             progress.isRewarded = false;
+            progress.isTracked = false;
+            progress.currentAmount = 0;
         }
+        Debug.Log($"Daily 리셋 완료: {progress.quest.questName}");
     }
 
     public void RefreshQuestProgressFromInventory(bool notify = true)
@@ -150,33 +175,30 @@ public class QuestManager : MonoBehaviour
 
         return result;
     }
-
-    public List<QuestProgress> GetDailyQuests()
+    public bool IsQuestRewarded(QuestData quest)
     {
-        List<QuestProgress> result = new();
+        QuestProgress progress = GetQuestProgress(quest);
 
-        foreach (QuestProgress progress in quests)
-        {
-            ResetDailyQuest(progress);
+        if (progress == null)
+            return false;
 
-            if (progress.quest.questType == QuestType.Daily)
-                result.Add(progress);
-        }
+        ResetDailyQuest(progress);
 
-        return result;
+        return progress.isRewarded;
     }
 
-    public List<QuestProgress> GetOneTimeQuests()
+    public bool IsDailyQuestCompletedToday(QuestData quest)
     {
-        List<QuestProgress> result = new();
+        if (quest.questType != QuestType.Daily)
+            return false;
 
-        foreach (QuestProgress progress in quests)
-        {
-            if (progress.quest.questType == QuestType.OneTime)
-                result.Add(progress);
-        }
+        QuestProgress progress = GetQuestProgress(quest);
 
-        return result;
+        if (progress == null)
+            return false;
+
+        return progress.isRewarded &&
+               progress.lastRewardDate == GetToday();
     }
 
     public void ToggleTracked(QuestProgress progress)
@@ -246,13 +268,16 @@ public class QuestManager : MonoBehaviour
             progress.isTracked = true;
         }
 
+
         if (progress.isAccepted)
             return;
+
+        ResetDailyQuest(progress);
+        SyncQuestProgressWithInventory(progress);
 
         progress.isAccepted = true;
         progress.isTracked = true;
 
-        SyncQuestProgressWithInventory(progress);
 
         RefreshQuestProgressFromInventory(false);
 

@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe2ce7dfee617b343b9d78fdad9b049e, type: 3}
   m_Name: TestGold
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  itemName: TestGold
+  itemName: "\uD14C\uC2A4\uD2B8\uC6A9 \uACE8\uB4DC"
   icon: {fileID: 726990386, guid: a07bbbfbe3a354b4b962150e7ac7a6b7, type: 3}
   maxStack: 99
+  itemType: 0
+  buyPrice: 100
+  sellPrice: 50
+  toolType: 0
+  equipSlotType: 0
+  statModifiers: []
+  equipPrefab: {fileID: 0}
+  equipLocalPosition: {x: 0, y: 0, z: 0}
+  equipLocalEulerAngles: {x: 0, y: 0, z: 0}
+  equipLocalScale: {x: 1, y: 1, z: 1}

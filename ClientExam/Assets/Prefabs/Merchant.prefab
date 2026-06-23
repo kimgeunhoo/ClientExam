@@ -801,7 +801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd8c0e85a4571d4a9439f8b9194120e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Merchant
-  merchantName: Merchant
+  merchantName: "\uC0C1\uC778"
   sellItems:
   - itemData: {fileID: 11400000, guid: d8c137202bea2074db14688a64c01b1d, type: 2}
     price: 100
