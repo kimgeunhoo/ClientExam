@@ -31,7 +31,7 @@ public class ShopManager : MonoBehaviour
         if (inventoryManager == null)
             return false;
 
-        bool removed = inventoryManager.RemoveItemAt(slotIndex, amount);
+        bool removed = inventoryManager.RemoveItemAtShop(slotIndex, amount);
 
         if (!removed)
             return false;

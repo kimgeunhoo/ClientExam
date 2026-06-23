@@ -22,13 +22,13 @@ public class MineableOre : MonoBehaviour
     [SerializeField] private GameObject visualRoot;
     [SerializeField] private Collider oreCollider;
 
-   // private OreNode oreNode;
+    private OreNode oreNode;
 
     public string OreName => oreName;
     public float MiningTime => miningTime;
     private void Awake()
     {
-        //oreNode = GetComponent<OreNode>();
+        oreNode = GetComponent<OreNode>();
         HideInteractText();
     }
     private void Start()
@@ -98,7 +98,7 @@ public class MineableOre : MonoBehaviour
 
     private IEnumerator OreShatter()
     {
-        //oreNode.Interact(1);
+        oreNode.Interact(1);
         yield return new WaitForSeconds(1f);
     }
     public void ShowInteractText()

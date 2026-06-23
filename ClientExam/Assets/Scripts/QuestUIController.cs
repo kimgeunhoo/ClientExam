@@ -32,6 +32,9 @@ public class QuestUIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI rewardText;
     [SerializeField] private Button closeButton;
 
+    [SerializeField] private Image rewardImage1;
+    [SerializeField] private Image rewardImage2;
+
     private QuestProgress selectedQuest;
 
     private void Awake()
@@ -39,18 +42,22 @@ public class QuestUIController : MonoBehaviour
         questDetailPanel.SetActive(false);
         closeButton.onClick.AddListener(CloseQuestPanel);
     }
+    private void OnEnable()
+    {
+        if (questManager != null)
+            questManager.OnQuestChanged += RefreshAll;
+    }
+
+    private void OnDisable()
+    {
+        if (questManager != null)
+            questManager.OnQuestChanged -= RefreshAll;
+    }
+
     public void ToggleQuestPanel()
     {
         Debug.Log("Äù½ºÆ® Toggle ÀÔ·ÂµÊ");
 
-        if (questDetailPanel.activeSelf)
-            CloseQuestPanel();
-        else
-            OpenQuestPanel();
-    }
-
-    private void OnQuestInput(InputAction.CallbackContext context)
-    {
         if (questDetailPanel.activeSelf)
             CloseQuestPanel();
         else
@@ -90,8 +97,49 @@ public class QuestUIController : MonoBehaviour
                 OnClickTrackToggle
             );
         }
+        if (questManager.GetQuests().Count == 0)
+        {
+            selectedQuest = null;
+            ClearQuestDetail();
+        }
     }
 
+    private void ClearQuestDetail()
+    {
+        detailTitleText.text = "";
+        detailDescriptionText.text = "";
+        requireText.text = "";
+        rewardText.text = "";
+
+        rewardImage1.sprite = null;
+        rewardImage2.sprite = null;
+
+        rewardImage1.gameObject.SetActive(false);
+        rewardImage2.gameObject.SetActive(false);
+    }
+
+    private void RefreshAll()
+    {
+        questManager.RefreshQuestProgressFromInventory(false);
+
+        RefreshQuestList();
+        RefreshTracker();
+
+        if (selectedQuest == null)
+        {
+            ClearQuestDetail();
+            return;
+        }
+
+        if (selectedQuest.isRewarded)
+        {
+            selectedQuest = null;
+            ClearQuestDetail();
+            return;
+        }
+
+        ShowQuestDetail(selectedQuest);
+    }
 
     private void RefreshTracker()
     {
@@ -132,27 +180,6 @@ public class QuestUIController : MonoBehaviour
 
         rewardText.text =
             $"{quest.rewardGold} Gold, {quest.rewardItem.itemName} x {quest.rewardAmount}";
-    }
-
-    private string GetGoalText(QuestGoalType goalType)
-    {
-        switch (goalType)
-        {
-            case QuestGoalType.CollectItem:
-                return "Collect";
-
-            case QuestGoalType.MineOre:
-                return "Mineing Ore";
-
-            case QuestGoalType.KillMonster:
-                return "Huntint";
-
-            case QuestGoalType.TalkToNpc:
-                return "Talk";
-
-            default:
-                return "Goals";
-        }
     }
 
     private void ClearChildren(Transform parent)

@@ -412,7 +412,8 @@ public class InventoryManager : MonoBehaviour
         return null;
     }
 
-    public bool RemoveItemAt(int slotIndex, int amount, bool refresh = true)
+    // 상점판매
+    public bool RemoveItemAtShop(int slotIndex, int amount, bool refresh = true)
     {
         if (slotIndex < 0 || slotIndex >= slots.Count)
             return false;
@@ -438,4 +439,44 @@ public class InventoryManager : MonoBehaviour
 
         return true;
     }
+    // 퀘스트 보상 제거
+    // 추후 아이템 드롭으로 확장가능
+    public bool RemoveItem(ItemData item, int amount)
+    {
+        if (item == null || amount <= 0)
+            return false;
+
+        int remain = amount;
+
+        for (int i = 0; i < slots.Count; i++)
+        {
+            InventorySlotData slot = slots[i];
+
+            if (slot == null || slot.IsEmpty)
+                continue;
+
+            if (slot.item != item)
+                continue;
+
+            int removeCount = Mathf.Min(slot.count, remain);
+
+            slot.count -= removeCount;
+            remain -= removeCount;
+
+            if (slot.count <= 0)
+            {
+                slot.Clear();
+            }
+
+            if (remain <= 0)
+            {
+                RefreshUI();
+                return true;
+            }
+        }
+
+        RefreshUI();
+        return false;
+    }
+
 }

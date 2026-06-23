@@ -1,7 +1,7 @@
-using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
+using ShatterStone;
 
 public class PlayerMining : MonoBehaviour
 {
@@ -140,13 +140,37 @@ public class PlayerMining : MonoBehaviour
             progressUI.Hide();
         }
 
-        ore.MineComplete();
+        OreNode oreNode = ore.GetComponent<OreNode>();
+
+        if (oreNode == null)
+            oreNode = ore.GetComponentInParent<OreNode>();
+
+        if (oreNode != null)
+        {
+            oreNode.Interact();
+        }
+        else
+        {
+            Debug.LogWarning($"{ore.name}에 OreNode가 없습니다. 기존 MineComplete를 실행합니다.");
+            ore.MineComplete();
+        }
+
         ore.HideInteractText();
 
         nearestOre = null;
         previousNearestOre = null;
         miningRoutine = null;
         isMining = false;
+
+
+        // Shatter 코드 에셋 적용 전의 코드
+        //ore.MineComplete();
+        //ore.HideInteractText();
+
+        //nearestOre = null;
+        //previousNearestOre = null;
+        //miningRoutine = null;
+        //isMining = false;
     }
 
     private void FaceOre(MineableOre ore)

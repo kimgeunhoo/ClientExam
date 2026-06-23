@@ -196,7 +196,7 @@ namespace ShatterStone
         protected virtual IEnumerator DelayDestroy()
         {
             yield return new WaitForSeconds(DelayDestroySeconds);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

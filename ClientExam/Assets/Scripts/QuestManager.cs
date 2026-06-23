@@ -11,6 +11,8 @@ public class QuestManager : MonoBehaviour
     [SerializeField] private List<QuestData> questDatas;
     private List<QuestProgress> quests = new List<QuestProgress>();
 
+    public event Action OnQuestChanged;
+
     private void Start()
     {
         InitQuests();
@@ -41,41 +43,38 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    public void OnItemCollected(ItemData item, int amount)
+    public void RefreshQuestProgressFromInventory(bool notify = true)
     {
         foreach (QuestProgress progress in quests)
         {
             if (!progress.isAccepted)
                 continue;
 
-            ResetDailyQuest(progress);
-
-            if (progress.isCompleted)
-                continue;
-
             QuestData quest = progress.quest;
 
-            Debug.Log($"비교: QuestTarget={quest.targetItem?.itemName}, Item={item.itemName}");
-
-            if (quest.goalType != QuestGoalType.CollectItem)
+            if (quest.goalType != QuestGoalType.CollectItem &&
+               quest.goalType != QuestGoalType.MineOre)
                 continue;
 
-            if (quest.targetItem != item)
+            if (quest.targetItem == null)
                 continue;
 
-            progress.currentAmount += amount;
+            int count = inventoryManager.GetItemCount(quest.targetItem);
 
-            if (progress.currentAmount >= quest.requiredAmount)
-            {
-                progress.currentAmount = quest.requiredAmount;
-                progress.isCompleted = true;
-                Debug.Log($"퀘스트 완료: {quest.questName}");
-            }
-            else
-            {
-                Debug.Log($"퀘스트 진행도: {progress.currentAmount}/{quest.requiredAmount}");
-            }
+            progress.currentAmount = Mathf.Min(count, quest.requiredAmount);
+            progress.isCompleted = progress.currentAmount >= quest.requiredAmount;
+
+            Debug.Log($"퀘스트 보유량 동기화: {quest.questName} {progress.currentAmount}/{quest.requiredAmount}");
+
         }
+
+        if (notify)
+            OnQuestChanged?.Invoke();
+    }
+
+    public void OnItemCollected(ItemData item, int amount)
+    {
+        RefreshQuestProgressFromInventory();
     }
 
     public void ReceiveReward(QuestProgress progress)
@@ -84,13 +83,28 @@ public class QuestManager : MonoBehaviour
             return;
 
         ResetDailyQuest(progress);
+        RefreshQuestProgressFromInventory(false);
 
         if (!progress.isCompleted || progress.isRewarded)
             return;
 
         QuestData quest = progress.quest;
 
-        if (progress.quest.rewardItem != null && quest.rewardAmount > 0)
+        if (quest.targetItem != null && quest.requiredAmount > 0)
+        {
+            bool removed = inventoryManager.RemoveItem(
+                quest.targetItem,
+                quest.requiredAmount
+            );
+
+            if (!removed)
+            {
+                Debug.Log("퀘스트 요구 아이템 제거 실패");
+                return;
+            }
+        }
+
+        if (quest.rewardItem != null && quest.rewardAmount > 0)
         {
             inventoryManager.AddItem(progress.quest.rewardItem, progress.quest.rewardAmount);
         }
@@ -110,10 +124,12 @@ public class QuestManager : MonoBehaviour
         //}
         progress.isRewarded = true;
         progress.isTracked = false;
+        progress.isAccepted = false;
 
         if (quest.questType == QuestType.Daily)
             progress.lastRewardDate = GetToday();
 
+        OnQuestChanged?.Invoke();
     }
     public List<QuestProgress> GetQuests()
     {
@@ -237,6 +253,10 @@ public class QuestManager : MonoBehaviour
         progress.isTracked = true;
 
         SyncQuestProgressWithInventory(progress);
+
+        RefreshQuestProgressFromInventory(false);
+
+        OnQuestChanged?.Invoke();
 
         Debug.Log($"퀘스트 수락됨: {quest.questName}");
     }

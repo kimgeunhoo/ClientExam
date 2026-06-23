@@ -6214,6 +6214,7 @@ GameObject:
   - component: {fileID: 8383778560065883693}
   - component: {fileID: 1762863753397283304}
   - component: {fileID: 32722301716742748}
+  - component: {fileID: 29720099432977353}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -6296,6 +6297,7 @@ MonoBehaviour:
   zoomSmooth: 10
   animator: {fileID: 7598993647178643134}
   playerShopInteractor: {fileID: 8383778560065883693}
+  currentQuestNpc: {fileID: 0}
 --- !u!114 &5224658142065747095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6323,6 +6325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRooting
   inventoryManager: {fileID: 0}
+  questManager: {fileID: 0}
   pickupRange: 2
   itemLayer:
     serializedVersion: 2
@@ -6415,6 +6418,20 @@ MonoBehaviour:
   requireText: {fileID: 0}
   rewardText: {fileID: 0}
   closeButton: {fileID: 0}
+  rewardImage1: {fileID: 0}
+  rewardImage2: {fileID: 0}
+--- !u!114 &29720099432977353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3032768277682138633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c35d967c1076204384f79dd6039717d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerQuestInteractor
 --- !u!1 &3037422010052291856
 GameObject:
   m_ObjectHideFlags: 0

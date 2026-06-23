@@ -22,4 +22,4 @@ MonoBehaviour:
   requiredAmount: 30
   rewardItem: {fileID: 11400000, guid: d8c137202bea2074db14688a64c01b1d, type: 2}
   rewardAmount: 1
-  rewardGold: 1000
+  rewardGold: 5000

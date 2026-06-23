@@ -70,16 +70,18 @@ public class PlayerRooting : MonoBehaviour
         int count = nearestItem.Amount;
 
         bool success = nearestItem.PickUp(inventoryManager);
-        if (questManager != null)
-        {
-            questManager.OnItemCollected(itemData, count);
-        }
 
         if (!success)
         {
             Debug.Log("아이템을 주울 수 없습니다. 인벤토리가 가득 찼거나 ItemData가 없습니다.");
             return false;
         }
+
+        if (questManager != null)
+        {
+            questManager.RefreshQuestProgressFromInventory();
+        }
+
         return success;
     }
 

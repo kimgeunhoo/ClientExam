@@ -13,5 +13,15 @@ MonoBehaviour:
   m_Name: IronOre
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   itemName: IronOre
-  icon: {fileID: 1641936880, guid: d57db3b10434758459132aeb92b06bb6, type: 3}
+  icon: {fileID: 1169253845, guid: 077cea97292c92d49b67a37a95671632, type: 3}
   maxStack: 99
+  itemType: 0
+  buyPrice: 100
+  sellPrice: 50
+  toolType: 0
+  equipSlotType: 0
+  statModifiers: []
+  equipPrefab: {fileID: 0}
+  equipLocalPosition: {x: 0, y: 0, z: 0}
+  equipLocalEulerAngles: {x: 0, y: 0, z: 0}
+  equipLocalScale: {x: 1, y: 1, z: 1}

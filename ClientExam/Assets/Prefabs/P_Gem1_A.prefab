@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.5
-  m_fontSizeBase: 0.5
+  m_fontSize: 0.3
+  m_fontSizeBase: 0.3
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -237,10 +237,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pieces: {fileID: 405756201477464923, guid: d0efc4f0689f09c4fbb14f3a6c237c18, type: 3}
-  refinedPickup: {fileID: 8429349603188083115, guid: 3da20e0e5a6ad2549a4882cb4ee96cbf, type: 3}
-  dropOnHit: 1
-  hitsToDestroy: 4
-  dropOnDestroy: 4
+  refinedPickup: {fileID: 8429349603188083115, guid: 29aca419b940250409fcb9451453b266, type: 3}
+  dropOnHit: 0
+  hitsToDestroy: 1
+  dropOnDestroy: 3
   knockAngle: {x: 0, y: 0, z: 10}
   knockCurve:
     serializedVersion: 2
@@ -277,7 +277,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   knockDuration: 0.25
   enableRespawn: 1
-  respawnDelay: 30
+  respawnDelay: 10
   cacheVisualBoundaries: 1
   nodeAudio: {fileID: 1842007692106461084}
   nodeCollider: {fileID: 8792991783074164720}
